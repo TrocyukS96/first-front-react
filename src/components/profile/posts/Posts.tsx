@@ -1,40 +1,29 @@
 import React from 'react';
 import s from './Posts.module.css';
-import Post from './post/Post';
-import PostLogo1 from './../../../assets/images/main/profile/logo1.jpg';
-import PostLogo2 from './../../../assets/images/main/profile/logo2.png';
+import {StatePostType} from "../../../redux/state";
 
+type PostType = {
+    postsState:Array<StatePostType>
 
-type PostType={
-    text:string
-    img:any
-    likeCount:number
 }
 
-function Posts() {
+function Posts(props:PostType) {
 
-   const post1:PostType = {
-      text: "My first post for today",
-      img: PostLogo1,
-      likeCount: 2
-   }
-   const post2:PostType = {
-      text: "My  post for today",
-      img: PostLogo2,
-      likeCount: 1
+let post =props.postsState.map(m=>{
+    return(
+        <div key={m.id} className={s.post}>
+            <img className={s.postImg} src={m.img} alt="image of user"/>
+            <span className={s.postText}>{m.text}</span>
+            <button className={s.likeCount}>{m.likeCount}</button>
+        </div>
+    )
+})
 
-
-   }
-
-
-   return (
-      <div className={s.posts}>
-         <Post text={post1.text} img={post1.img} likes={post1.likeCount} />
-         <Post text={post2.text} img={post2.img} likes={post2.likeCount} />
-         <Post text={post1.text} img={post1.img} likes={post1.likeCount} />
-         <Post text={post2.text} img={post2.img} likes={post2.likeCount} />
-      </div>
-   );
+    return (
+        <div className={s.posts}>
+            {post}
+        </div>
+    );
 }
 
 export default Posts;

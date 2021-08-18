@@ -1,6 +1,36 @@
 .posts {
-   padding-top: 10px;
-   padding-left: 25px;
+    padding-top: 10px;
+    padding-left: 25px;
 
 
+}
+
+.post {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.postImg {
+    width: 50px;
+    height: 50px;
+
+    border-radius:50%;
+}
+
+.postText {
+    color: white;
+    font-size: 20px;
+
+    padding: 0 20px;
+}
+
+.likeCount {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 14px;
+
+    border-style: none;
 }
