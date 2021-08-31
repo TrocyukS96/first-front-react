@@ -70,20 +70,31 @@ export type MessageType = {
 // }
 
 export type StoreType = {
-    _subscriber:()=>void
-    _state:StateType
-    getState:()=>void
-    addTask:()=>void
-    changeNewPostText:(newPostText: string)=>void
-    subscribe:(observer:any)=>void
+    _state: StateType
+    getState: () => StateType
+    dispatch: (action: ActionTypes) => void
+    _onChange: () => void
+    subscribe: (callback: () => void) => void
+
+}
+type AddTaskActionType = ReturnType<typeof addTaskAC>
+type ChangePostTextType = ReturnType<typeof ChangePostTextAC>
+
+
+export const addTaskAC = () => ({type:"ADD-TASK"} as const)             ///возвращаемое значение мы типизируем после круглых кавычек в функциях
+
+export const ChangePostTextAC = (newText: string) => {
+    return {
+        type: "CHANGE-POST-TEXT",
+        newText: newText
+    } as const
 }
 
-export let store = {
-    _subscriber() {
-        console.log('no subscribers (observers)')
-    },
-    _state:{
-        profilePage:<ProfilePageType> {
+export type ActionTypes = ReturnType<typeof addTaskAC> | ReturnType<typeof ChangePostTextAC>
+
+export let store: StoreType = {
+    _state: {
+        profilePage: {
             posts: [
                 {
                     id: 1,
@@ -104,7 +115,7 @@ export let store = {
             ],
             newPost: ''
         },
-        dialogsPage:<dialogsPageType> {
+        dialogsPage: {
             messages: [
                 {
                     id: 1110, name: 'Stas', text: "My first post for today"
@@ -126,45 +137,28 @@ export let store = {
     getState() {
         return this._state;
     },
-    addTask(){
-        const newPost: StatePostType = {
-            id: new Date().getTime(),
-            text: this._state.profilePage.newPost,
-            img: PostLogo,
-            likeCount: 0
+    dispatch(action) {
+        if (action.type === "ADD-TASK") {
+            const newPost: StatePostType = {
+                id: new Date().getTime(),
+                text: this._state.profilePage.newPost,
+                img: PostLogo,
+                likeCount: 0
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPost = ''
+
+            this._onChange()
+        } else if (action.type === "CHANGE-POST-TEXT") {
+            this._state.profilePage.newPost = action.newText
+            this._onChange()
         }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPost = ''
-        rerenderEntireTree(this)
     },
-    changeNewPostText(newPostText: string){
-        this._state.profilePage.newPost = newPostText
-        rerenderEntireTree(this)
+    _onChange() {   //вообще не нужен, тупо отрисовывает изменение state
+        console.log('state changed')
     },
-    subscribe(observer:any) {
-        this._subscriber = observer;
+    subscribe(callback) {    //подписывается на событие в зависимости от callback
+        this._onChange = callback;
     },
+
 }
-
-
-// let state = store.getState()
-
-// export let addPostTask = () => {
-//     const newPost: StatePostType = {
-//         id: new Date().getTime(),
-//         text: state.profilePage.newPost,
-//         img: PostLogo,
-//         likeCount: 0
-//     }
-//     state.profilePage.posts.push(newPost)
-//     state.profilePage.newPost = ''
-//     rerenderEntireTree(state)
-// }
-//
-// export const changeNewPostText = (newPostText: string) => {
-//     state.profilePage.newPost = newPostText
-//     rerenderEntireTree(state)
-// }
-// export const subscribe = (observer: any) => {
-// }
-//

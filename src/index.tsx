@@ -5,17 +5,16 @@ import React from "react";
 import App from "./App";
 import {StateType, store, StoreType} from "./redux/state";
 
-
-//
 reportWebVitals();
- export const rerenderEntireTree=(store:StoreType)=>{
+export const rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
-            <App store ={store}   />
+            <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>
         </React.StrictMode>,
         document.getElementById('root')
     )
 }
-rerenderEntireTree(store)
+rerenderEntireTree()
 store.subscribe(rerenderEntireTree)
-// subscribe(rerenderEntireTree)
+
+

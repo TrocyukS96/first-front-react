@@ -1,31 +1,29 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React, {ChangeEvent, RefObject, useRef} from 'react';
 
 import s from './Profile.module.css';
 import ProfileImg from './../../assets/images/main/main-img.jpg';
 import PersonImg from './../../assets/images/main/person-img.jpg';
 import Posts from './posts/Posts';
-import {ProfilePageType, StateType} from "../../redux/state";
+import {ActionTypes, addTaskAC, ProfilePageType} from "../../redux/state";
 
-type PropsType = {
-    profilePageState: ProfilePageType
-    addPostTask: () => void
-    changeNewPostText: (newPostText: string) => void
+export type PropsType = {
+    dispatch: (action: ActionTypes) => void
+    profilePage: ProfilePageType
 }
 
-function Profile(props: PropsType) {
-    let newPostElement = React.createRef<HTMLTextAreaElement>()  // хук
 
-    const onClickPostHandler = (event: React.MouseEvent) => {
-        let text = newPostElement.current?.value
-        event.preventDefault()
-        props.addPostTask()
+function Profile(props: PropsType) {
+    let newPostElement: RefObject<HTMLTextAreaElement> = useRef(null);  // хук
+    const onClickPostHandler = (e: any) => {
+        props.dispatch(addTaskAC())
+        e.preventDefault()
+        console.log(e)
         // props.changeNewPostText('')
     }
-    const onChangeTextPost = () => {
-        let textOfNewPost = newPostElement.current?.value
-        if (textOfNewPost)
-            props.changeNewPostText(textOfNewPost)
-
+    const onChangeTextPost = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        if (e.currentTarget.value) {
+            props.dispatch({type: 'CHANGE-POST-TEXT', newText: e.currentTarget.value})
+        }
     }
 
     return (
@@ -48,13 +46,11 @@ function Profile(props: PropsType) {
                     My posts
                 </h3>
                 <div className={s.inputBlock}>
-                    <textarea ref={newPostElement} value={props.profilePageState.newPost} onChange={onChangeTextPost}/>
+                    <textarea ref={newPostElement} value={props.profilePage.newPost} onChange={onChangeTextPost}/>
                 </div>
                 <button className={s.formBtn} onClick={onClickPostHandler}>Send</button>
             </form>
-            <Posts
-                postsState={props.profilePageState.posts}
-            />
+            <Posts postsState={props.profilePage.posts}/>
         </main>
     );
 }

@@ -5,10 +5,11 @@ import Profile from './components/profile/Profile';
 import Sidebar from './components/sidebar/Sidebar';
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {Dialogs} from './components/dialogs/Dialogs';
-import { StateType, StoreType} from "./redux/state";
+import {ActionTypes, StateType, StoreType} from "./redux/state";
 
 type PropsType = {
-    store: StoreType
+    state: StateType
+    dispatch:(action:ActionTypes)=>void
 
 }
 
@@ -18,9 +19,11 @@ const App = (props: PropsType) => {
             <div className="app-wrapper">
                 <Header/>
                 <Route path={"/Profile"}
-                       render={() => <Profile profilePageState={props.store._state.profilePage} addPostTask={props.store.addTask}
-                                              changeNewPostText={props.store.changeNewPostText}/>}/>
-                <Route path={"/Dialogs"} render={() => <Dialogs dialogsPageState={props.store._state.dialogsPage}/>}/>
+                           render={() => <Profile
+                               dispatch ={props.dispatch}
+                               profilePage={props.state.profilePage}
+                           />}/>
+                <Route path={"/Dialogs"} render={() => <Dialogs dialogsPageState={props.state.dialogsPage}/>}/>
                 {/*<Route path={"/Messages"} render = {() => <News/>  } />*/}
                 {/*<Route path={"/Messages"} render = {() => <Settings/>  } />*/}
                 <Redirect from='/' to='/Profile'/>
