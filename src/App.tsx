@@ -6,6 +6,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {Dialogs} from './components/dialogs/Dialogs';
 import {ActionTypes, StateType, StoreType} from "./redux/state";
+import {Training} from "./components/training/Training";
 
 type PropsType = {
     state: StateType
@@ -28,6 +29,13 @@ const App = (props: PropsType) => {
                            dispatch ={props.dispatch}
                            dialogsPageState={props.state.dialogsPage}
                        />}/>
+                <Route path={"/Training"}
+                       render={() => <Training
+                           dispatch ={props.dispatch}
+                           trainingPageState = {props.state.trainingPage}
+                       />}/>
+
+
                 {/*<Route path={"/Messages"} render = {() => <News/>  } />*/}
                 {/*<Route path={"/Messages"} render = {() => <Settings/>  } />*/}
                 <Redirect from='/' to='/Profile'/>

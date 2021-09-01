@@ -5,14 +5,19 @@ import smilik from './../assets/images/dialogs/smilik.jpg';
 import gentlemen from './../assets/images/dialogs/jentlemen.jpg';
 import {profileReducer} from "./ProfileReducer";
 import {dialogsReducer} from "./DialogsReducer";
+import trainingReducer from './TrainingReducer';
+
+export const addTrainTask = 'ADD_TRAIN_TASK';
+export const changeTrainTask = 'CHANGE_TRAIN_TASK';
 
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: dialogsPageType
+    trainingPage: TrainingPageType
 }
 
 export type ProfilePageType = {
-    posts: StatePostType[],
+    posts: StatePostType[]
     newPost: string
 }
 export type StatePostType = {
@@ -21,9 +26,19 @@ export type StatePostType = {
     img: any
     likeCount: number
 }
+export type TrainingTaskType = {
+    id: number
+    title: string
+    descriptions: string
+    score: number
+}
+export type TrainingPageType = {
+    tasks: TrainingTaskType[]
+    newTask: string
+}
 
 export type dialogsPageType = {
-    messages: MessageType[],
+    messages: MessageType[]
     newMessage: string
 }
 export type MessageType = {
@@ -44,18 +59,17 @@ export type StoreType = {
 type AddTaskActionType = ReturnType<typeof addTaskAC>
 type ChangePostTextType = ReturnType<typeof ChangePostTextAC>
 type addDialogsTextAC = ReturnType<typeof addDialogsTextAC>
-type changeDialogsTextAC = ReturnType<typeof changeDialogsTextAC>
+type AddTrainingTaskAC = ReturnType<typeof AddTrainingTaskAC>
+type ChangeTrainingTaskTextAC = ReturnType<typeof ChangeTrainingTaskTextAC>
 
 
 export const addTaskAC = () => ({type: "ADD-TASK"} as const)             ///возвращаемое значение мы типизируем после круглых кавычек в функциях
-
 export const ChangePostTextAC = (newText: string) => {
     return {
         type: "CHANGE-POST-TEXT",
         newText: newText
     } as const
 }
-
 export const changeDialogsTextAC = (newDialogsText: string) => {
     return {
         type: "CHANGE-DIALOGS-MESSAGE",
@@ -63,13 +77,27 @@ export const changeDialogsTextAC = (newDialogsText: string) => {
     } as const
 }
 export const addDialogsTextAC = () => ({type: "ADD-DIALOGS-MESSAGE"} as const)
+export const AddTrainingTaskAC = () =>{
+    return{
+        type:addTrainTask
+    } as const
+}
+export const ChangeTrainingTaskTextAC = (newTask:string) =>{
+    return{
+        type:changeTrainTask,
+        newTask: newTask
+    } as const
+}
 
-export type ActionTypes = ReturnType<typeof addTaskAC> |
+
+
+export type ActionTypes =
+    ReturnType<typeof addTaskAC> |
     ReturnType<typeof ChangePostTextAC> |
     ReturnType<typeof addDialogsTextAC> |
-    ReturnType<typeof changeDialogsTextAC>
-
-
+    ReturnType<typeof changeDialogsTextAC>|
+    ReturnType<typeof AddTrainingTaskAC> |
+    ReturnType<typeof ChangeTrainingTaskTextAC>
 
 export let store: StoreType = {
     _state: {
@@ -111,6 +139,14 @@ export let store: StoreType = {
 
             ],
             newMessage: '123'
+        },
+        trainingPage: {
+            tasks: [
+                {id: 1, title: 'English', descriptions: 'like to learn it in free time', score: 123},
+                {id: 2, title: 'FrontEnd', descriptions: 'wanna improve my skills in this area', score: 444},
+                {id: 3, title: 'Sport', descriptions: 'Its useful; for health', score: 346}
+            ],
+            newTask: 'Maybe dancing'
         }
     },
     getState() {
@@ -118,10 +154,11 @@ export let store: StoreType = {
     },
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.trainingPage = trainingReducer(this._state.trainingPage, action);
         this._onChange()
     },
-    _onChange() {   //вообще не нужен, тупо отрисовывает изменение state
+    _onChange() {
         console.log('state changed')
     },
     subscribe(callback) {    //подписывается на событие в зависимости от callback

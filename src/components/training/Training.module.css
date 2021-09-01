@@ -1,0 +1,49 @@
+
+.training {
+    background-image: url("https://webfon.at.ua/_ld/2/242_wood01.jpg");
+    background-size: cover;
+    background-position: center center;
+}
+span, p{
+    font-size: 24px;
+    color:antiquewhite;
+}
+span{
+    color:cornflowerblue;
+
+    margin-right: 20px;
+}
+.itemList {
+    padding: 20px 0px 10px 15px;
+
+
+}
+li{
+    display: flex;
+    gap:12px;
+}
+.inputFormBlock{
+    margin-left: 20px;
+}
+input{
+    width: 160px;
+    height: 30px;
+}
+button{
+    height: 30px;
+
+    width: 100px;
+
+    margin-left: 10px;
+
+    border-radius: 5px;
+
+    transition: all .3s ease-in-out;
+
+}
+button:hover{
+    background-color: #903c0c;
+    color: white;
+
+    box-shadow: 1px 2px 3px black;
+}
