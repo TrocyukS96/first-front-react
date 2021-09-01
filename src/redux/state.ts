@@ -1,6 +1,10 @@
-import React, {useState} from 'react';
 import PostLogo from '../assets/images/main/profile/logo1.jpg';
-import {rerenderEntireTree} from "../index";
+
+import kazak from './../assets/images/dialogs/kazak.jpg';
+import smilik from './../assets/images/dialogs/smilik.jpg';
+import gentlemen from './../assets/images/dialogs/jentlemen.jpg';
+import {profileReducer} from "./ProfileReducer";
+import {dialogsReducer} from "./DialogsReducer";
 
 export type StateType = {
     profilePage: ProfilePageType
@@ -26,48 +30,8 @@ export type MessageType = {
     id: number
     name: string
     text: string
+    img: any
 }
-// export let state = {
-//     profilePage: {
-//         posts: [
-//             {
-//                 id: 1,
-//                 text: "Ab, aliquid magnam officiis porro quod ullam veritatis.officiis porro quod",
-//                 img: PostLogo,
-//                 likeCount: 2
-//             },
-//             {
-//                 id: 2, text: "Ab, aliquid magnam officiis porro", img: PostLogo, likeCount: 4
-//             },
-//             {
-//                 id: 3, text: "Ab, aliquid magnam officiis porro quod ullam veritatis.", img: PostLogo, likeCount: 6
-//             },
-//             {
-//                 id: 4, text: "My first message for today", img: PostLogo, likeCount: 12
-//             }
-//
-//         ],
-//         newPost: ''
-//     },
-//     dialogsPage: {
-//         messages: [
-//             {
-//                 id: 1110, name: 'Stas', text: "My first post for today"
-//             },
-//             {
-//                 id: 1111, name: 'Stas', text: "Other message"
-//             },
-//             {
-//                 id: 1112, name: 'Stas', text: "Im learning front-end"
-//             },
-//             {
-//                 id: 1113, name: 'Stas', text: "My first post for today"
-//             }
-//
-//         ],
-//         newMessage: '123'
-//     }
-// }
 
 export type StoreType = {
     _state: StateType
@@ -79,9 +43,11 @@ export type StoreType = {
 }
 type AddTaskActionType = ReturnType<typeof addTaskAC>
 type ChangePostTextType = ReturnType<typeof ChangePostTextAC>
+type addDialogsTextAC = ReturnType<typeof addDialogsTextAC>
+type changeDialogsTextAC = ReturnType<typeof changeDialogsTextAC>
 
 
-export const addTaskAC = () => ({type:"ADD-TASK"} as const)             ///возвращаемое значение мы типизируем после круглых кавычек в функциях
+export const addTaskAC = () => ({type: "ADD-TASK"} as const)             ///возвращаемое значение мы типизируем после круглых кавычек в функциях
 
 export const ChangePostTextAC = (newText: string) => {
     return {
@@ -90,7 +56,20 @@ export const ChangePostTextAC = (newText: string) => {
     } as const
 }
 
-export type ActionTypes = ReturnType<typeof addTaskAC> | ReturnType<typeof ChangePostTextAC>
+export const changeDialogsTextAC = (newDialogsText: string) => {
+    return {
+        type: "CHANGE-DIALOGS-MESSAGE",
+        newDialogsText: newDialogsText
+    } as const
+}
+export const addDialogsTextAC = () => ({type: "ADD-DIALOGS-MESSAGE"} as const)
+
+export type ActionTypes = ReturnType<typeof addTaskAC> |
+    ReturnType<typeof ChangePostTextAC> |
+    ReturnType<typeof addDialogsTextAC> |
+    ReturnType<typeof changeDialogsTextAC>
+
+
 
 export let store: StoreType = {
     _state: {
@@ -118,16 +97,16 @@ export let store: StoreType = {
         dialogsPage: {
             messages: [
                 {
-                    id: 1110, name: 'Stas', text: "My first post for today"
+                    id: 1110, name: 'Stas', text: "My first post for today", img: kazak
                 },
                 {
-                    id: 1111, name: 'Stas', text: "Other message"
+                    id: 1111, name: 'Ivan', text: "Other message", img: gentlemen
                 },
                 {
-                    id: 1112, name: 'Stas', text: "Im learning front-end"
+                    id: 1112, name: 'Stas', text: "Im learning front-end", img: smilik
                 },
                 {
-                    id: 1113, name: 'Stas', text: "My first post for today"
+                    id: 1113, name: 'Stas', text: "My first post for today", img: gentlemen
                 }
 
             ],
@@ -138,21 +117,9 @@ export let store: StoreType = {
         return this._state;
     },
     dispatch(action) {
-        if (action.type === "ADD-TASK") {
-            const newPost: StatePostType = {
-                id: new Date().getTime(),
-                text: this._state.profilePage.newPost,
-                img: PostLogo,
-                likeCount: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPost = ''
-
-            this._onChange()
-        } else if (action.type === "CHANGE-POST-TEXT") {
-            this._state.profilePage.newPost = action.newText
-            this._onChange()
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._onChange()
     },
     _onChange() {   //вообще не нужен, тупо отрисовывает изменение state
         console.log('state changed')

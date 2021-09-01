@@ -1,9 +1,7 @@
 .sidebar {
    padding: 10px;
-
    grid-area: sidebar;
-
-   background-color: rgb(126, 126, 126);
+   background-color: rgb(0 0 0);
 }
 
 .sidebarItem {

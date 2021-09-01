@@ -1,20 +1,35 @@
 
 .dialogs {
-    display: flex;
-    justify-content: space-between;
-    background-color: yellowgreen;
-
+    background-image: url("https://webfon.at.ua/_ld/2/242_wood01.jpg");
+    background-size: cover;
+    background-position: center center;
 }
 
 .itemList {
-    padding: 20px 100px 10px 15px;
+    padding: 20px 0px 10px 15px;
 }
+.inputFormBlock{
+    margin-left: 20px;
+}
+input{
+    width: 160px;
+    height: 30px;
+}
+button{
+    height: 30px;
 
+    width: 100px;
 
+    margin-left: 10px;
 
-.messages {
-    padding: 20px 15px 10px 10px;
+    border-radius: 5px;
 
+    transition: all .3s ease-in-out;
 
-    background-color: #9cffff9e;
+}
+button:hover{
+    background-color: #903c0c;
+    color: white;
+
+    box-shadow: 1px 2px 3px black;
 }

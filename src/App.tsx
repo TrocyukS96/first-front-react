@@ -23,7 +23,11 @@ const App = (props: PropsType) => {
                                dispatch ={props.dispatch}
                                profilePage={props.state.profilePage}
                            />}/>
-                <Route path={"/Dialogs"} render={() => <Dialogs dialogsPageState={props.state.dialogsPage}/>}/>
+                <Route path={"/Dialogs"}
+                       render={() => <Dialogs
+                           dispatch ={props.dispatch}
+                           dialogsPageState={props.state.dialogsPage}
+                       />}/>
                 {/*<Route path={"/Messages"} render = {() => <News/>  } />*/}
                 {/*<Route path={"/Messages"} render = {() => <Settings/>  } />*/}
                 <Redirect from='/' to='/Profile'/>
