@@ -3,16 +3,16 @@ import s from './DialogsItem.module.css';
 import {NavLink} from "react-router-dom";
 import {dialogsPageType} from "../../../redux/state";
 
-type DialogsItemType={
-    dialogsPageState:dialogsPageType
+type DialogsItemType = {
+    dialogsPageState: dialogsPageType
     // name:string
     // id:number
 }
 
-export const DialogsItem = (props:DialogsItemType) => {
-    const dialogsMap = props.dialogsPageState.messages.map(d=>{
+export const DialogsItem = (props: DialogsItemType) => {
+    const dialogsMap = props.dialogsPageState.messages.map(d => {
 
-        return(
+        return (
             <li className={s.dialogsItem}>
                 <div className={s.user}>
                     <img className={s.img} src={d.img} alt="user-image"/>
@@ -23,8 +23,10 @@ export const DialogsItem = (props:DialogsItemType) => {
         )
     })
     return (
-        <li className={s.item}>
+        <>
             {dialogsMap}
-        </li>
+        </>
+
+
     )
 }

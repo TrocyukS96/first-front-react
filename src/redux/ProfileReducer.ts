@@ -1,7 +1,30 @@
 import PostLogo from "../assets/images/main/profile/logo1.jpg";
 import {ActionTypes, MessageType, ProfilePageType, StatePostType} from "./state";
 
-export const profileReducer = (state: ProfilePageType, action: ActionTypes) => {
+
+const initialState = {
+    posts: [
+        {
+            id: 1,
+            text: "Ab, aliquid magnam officiis porro quod ullam veritatis.officiis porro quod",
+            img: PostLogo,
+            likeCount: 2
+        },
+        {
+            id: 2, text: "Ab, aliquid magnam officiis porro", img: PostLogo, likeCount: 4
+        },
+        {
+            id: 3, text: "Ab, aliquid magnam officiis porro quod ullam veritatis.", img: PostLogo, likeCount: 6
+        },
+        {
+            id: 4, text: "My first message for today", img: PostLogo, likeCount: 12
+        }
+
+    ],
+    newPost: ''
+}
+
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
 
     if (action.type === "ADD-TASK") {
         const newPost: StatePostType = {
