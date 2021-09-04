@@ -17,7 +17,7 @@ const initialState = {
             id: 3, text: "Ab, aliquid magnam officiis porro quod ullam veritatis.", img: PostLogo, likeCount: 6
         },
         {
-            id: 4, text: "My first message for today", img: PostLogo, likeCount: 12
+            id: 4, text: "My first dialogsMessage for today", img: PostLogo, likeCount: 12
         }
 
     ],

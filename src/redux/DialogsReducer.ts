@@ -10,7 +10,7 @@ const initialState = {
             id: 1110, name: 'Stas', text: "My first post for today", img: kazak
         },
         {
-            id: 1111, name: 'Ivan', text: "Other message", img: gentlemen
+            id: 1111, name: 'Ivan', text: "Other dialogsMessage", img: gentlemen
         },
         {
             id: 1112, name: 'Stas', text: "Im learning front-end", img: smilik

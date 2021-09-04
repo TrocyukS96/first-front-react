@@ -116,7 +116,7 @@ export let store: StoreType = {
                     id: 3, text: "Ab, aliquid magnam officiis porro quod ullam veritatis.", img: PostLogo, likeCount: 6
                 },
                 {
-                    id: 4, text: "My first message for today", img: PostLogo, likeCount: 12
+                    id: 4, text: "My first dialogsMessage for today", img: PostLogo, likeCount: 12
                 }
 
             ],
@@ -128,7 +128,7 @@ export let store: StoreType = {
                     id: 1110, name: 'Stas', text: "My first post for today", img: kazak
                 },
                 {
-                    id: 1111, name: 'Ivan', text: "Other message", img: gentlemen
+                    id: 1111, name: 'Ivan', text: "Other dialogsMessage", img: gentlemen
                 },
                 {
                     id: 1112, name: 'Stas', text: "Im learning front-end", img: smilik
