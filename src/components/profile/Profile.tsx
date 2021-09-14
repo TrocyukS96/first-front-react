@@ -4,13 +4,29 @@ import s from './Profile.module.css';
 import ProfileImg from './../../assets/images/main/main-img.jpg';
 import PersonImg from './../../assets/images/main/person-img.jpg';
 import Posts from './posts/Posts';
-import {ActionTypes, ProfilePageType} from "../../redux/state";
-import ProfileFormContainer from "./profileForm/ProfileFormContainer";
+import {Dispatch} from "redux";
+import {addTaskAC, ChangePostTextAC} from "../../redux/ProfileReducer";
+import {connect} from "react-redux";
+import ProfileForm from "./profileForm/ProfileForm";
+import {AppRootType} from "../../redux/redux-store";
 
-export type PropsType = {
-    dispatch: (action: ActionTypes) => void
-    profilePage: ProfilePageType
+type PostType = {
+    id: number
+    text: string
+    img: any
+    likeCount: number
 }
+type mstpType = {
+    newPostValue: string
+    posts: PostType[]
+
+}
+type mdtpType = {
+    changePostText: (newPostText: string) => void
+    sendPost: () => void
+}
+
+type PropsType = mstpType & mdtpType
 
 function Profile(props: PropsType) {
     return (
@@ -28,13 +44,33 @@ function Profile(props: PropsType) {
                     </div>
                 </div>
             </div>
-                <ProfileFormContainer
-                    dispatch={props.dispatch}
-                    profilePage={props.profilePage}
-                />
-            <Posts postsState={props.profilePage.posts}/>
+            <ProfileForm
+                newPostValue={props.newPostValue}
+                sendPost={props.sendPost}
+                changePostText={props.changePostText}/>
+
+            <Posts posts={props.posts}/>
         </main>
     );
 }
 
-export default Profile;
+
+const mapStateToProps = (state: AppRootType): mstpType => {
+    return {
+        newPostValue: state.profilePage.newPost,
+        posts: state.profilePage.posts
+    }
+}
+const mapDispatchToProps = (dispatch: Dispatch): mdtpType => {
+    return {
+        sendPost: () => {
+            dispatch(addTaskAC())
+        },
+        changePostText: (newPostText: string) => {
+            ChangePostTextAC(newPostText)
+        }
+    }
+}
+
+export const ProfileContainer = connect<mstpType, mdtpType, {}, AppRootType>(mapStateToProps, mapDispatchToProps)(Profile);
+

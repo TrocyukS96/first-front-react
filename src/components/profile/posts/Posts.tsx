@@ -4,7 +4,7 @@ import {StatePostType} from "../../../redux/state";
 import {Post} from "./post/Post";
 
 type PostType = {
-    postsState:Array<StatePostType>
+    posts:Array<StatePostType>
 
 }
 
@@ -14,7 +14,7 @@ function Posts(props:PostType) {
 
     return (
         <div className={s.posts}>
-            <Post postsValue={props.postsState}/>
+            <Post postsValue={props.posts}/>
         </div>
     );
 }

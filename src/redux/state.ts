@@ -9,6 +9,10 @@ import trainingReducer from './TrainingReducer';
 
 export const addTrainTask = 'ADD_TRAIN_TASK';
 export const changeTrainTask = 'CHANGE_TRAIN_TASK';
+export const addTask = 'ADD-TASK';
+export const addDialogsMessage = 'ADD-DIALOGS-MESSAGE';
+export const changePostText = 'CHANGE-POST-TEXT';
+export const changeDialogsMessage = 'CHANGE-DIALOGS-MESSAGE';
 
 export type StateType = {
     profilePage: ProfilePageType
@@ -51,53 +55,55 @@ export type MessageType = {
 export type StoreType = {
     _state: StateType
     getState: () => StateType
-    dispatch: (action: ActionTypes) => void
+    dispatch: (action: any) => void
     _onChange: () => void
     subscribe: (callback: () => void) => void
 
 }
-type AddTaskActionType = ReturnType<typeof addTaskAC>
-type ChangePostTextType = ReturnType<typeof ChangePostTextAC>
-type addDialogsTextAC = ReturnType<typeof addDialogsTextAC>
-type AddTrainingTaskAC = ReturnType<typeof AddTrainingTaskAC>
-type ChangeTrainingTaskTextAC = ReturnType<typeof ChangeTrainingTaskTextAC>
+ type addTaskAT = ReturnType<typeof addTaskAC>
+ type ChangePostTextAT = ReturnType<typeof ChangePostTextAC>
+ type addDialogsTextAT = ReturnType<typeof addDialogsTextAC>
+ type changeDialogsTextAT = ReturnType<typeof changeDialogsTextAC>
+ type addTrainingTextAT = ReturnType<typeof AddTrainingTaskAC>
+ type changeTrainingTextAT = ReturnType<typeof ChangeTrainingTaskTextAC>
 
 
-export const addTaskAC = () => ({type: "ADD-TASK"} as const)             ///возвращаемое значение мы типизируем после круглых кавычек в функциях
-export const ChangePostTextAC = (newText: string) => {
+ const addTaskAC = () => ({type: 'ADD-TASK'} as const)             ///возвращаемое значение мы типизируем после круглых кавычек в функциях
+ const ChangePostTextAC = (newText: string) => {
     return {
         type: "CHANGE-POST-TEXT",
-        newText: newText
+        newText:newText
     } as const
 }
-export const changeDialogsTextAC = (newDialogsText: string) => {
-    return {
-        type: "CHANGE-DIALOGS-MESSAGE",
+
+ const changeDialogsTextAC = (newDialogsText: string) =>
+     ({
+        type: changeDialogsMessage,
         newDialogsText: newDialogsText
-    } as const
-}
-export const addDialogsTextAC = () => ({type: "ADD-DIALOGS-MESSAGE"} as const)
-export const AddTrainingTaskAC = () =>{
-    return{
+    } as const)
+
+ const addDialogsTextAC = () => ({type: addDialogsMessage} as const)
+ const AddTrainingTaskAC = () =>
+   ({
         type:addTrainTask
-    } as const
-}
-export const ChangeTrainingTaskTextAC = (newTask:string) =>{
-    return{
+    } as const)
+
+ const ChangeTrainingTaskTextAC = (newTask:string) =>
+   ({
         type:changeTrainTask,
         newTask: newTask
     } as const
-}
-
+)
 
 
 export type ActionTypes =
-    ReturnType<typeof addTaskAC> |
-    ReturnType<typeof ChangePostTextAC> |
-    ReturnType<typeof addDialogsTextAC> |
-    ReturnType<typeof changeDialogsTextAC>|
-    ReturnType<typeof AddTrainingTaskAC> |
-    ReturnType<typeof ChangeTrainingTaskTextAC>
+    addTaskAT |
+    ChangePostTextAT |
+    addDialogsTextAT |
+    addTrainingTextAT |
+    changeTrainingTextAT |
+    changeDialogsTextAT
+
 
 export let store: StoreType = {
     _state: {
@@ -163,6 +169,6 @@ export let store: StoreType = {
     },
     subscribe(callback) {    //подписывается на событие в зависимости от callback
         this._onChange = callback;
-    },
+    }
 
 }

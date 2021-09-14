@@ -1,54 +1,68 @@
-import React, {ChangeEvent,KeyboardEvent, useState} from 'react';
-
+import React from 'react';
 import s from './Training.module.css';
-import {
-    ActionTypes,
-    AddTrainingTaskAC,
-    addTrainTask,
-    ChangeTrainingTaskTextAC,
-    TrainingPageType
-} from "../../redux/state";
+import {Dispatch} from "redux";
+import {AddTrainingTaskAC, ChangeTrainingTaskTextAC} from "../../redux/TrainingReducer";
+import {connect} from "react-redux";
+import {AppRootType} from "../../redux/redux-store";
+import {InputTrainingBlock} from "./inputTrainingBlock/InputTrainingBlock";
 
-type PropsType ={
-    dispatch: (action: ActionTypes) => void
-    trainingPageState:TrainingPageType
+type TaskType = {id: number, title: string, descriptions: string, score: number}
 
+type mstpType = {
+    newMessage: string
+    tasks: TaskType[]
 }
 
+type mdtpType = {
+    changeMessage: (message: string) => void
+    addMessage: () => void
+}
+type PropsType = mstpType & mdtpType
 
-export const Training = (props: PropsType) => {
-    const trainingItemMap = props.trainingPageState.tasks.map(m=>{
-        return(
+
+function Training(props: PropsType){
+    const trainingItemMap = props.tasks.map(m => {
+        return (
             <li >
                 <span>{m.title}</span>
                 <p>{m.descriptions}</p>
             </li>
         )
     })
-    const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=>{
-        if(e.currentTarget.value){
-            props.dispatch(ChangeTrainingTaskTextAC(e.currentTarget.value))
-            e.preventDefault()
-        }
-    }
-    const onClickHandler = () =>{
-        props.dispatch(AddTrainingTaskAC())
 
-    }
-   const onKeyPressHandler = (e:KeyboardEvent<HTMLInputElement>) => {
-        if(e.key === "Enter"){
-            props.dispatch(AddTrainingTaskAC())
-        }
-   }
+
     return (
         <div className={s.training}>
             <ul className={s.itemList}>
                 {trainingItemMap}
             </ul>
             <div className={s.inputFormBlock}>
-                <input onChange={onChangeHandler} value={props.trainingPageState.newTask} onKeyPress={onKeyPressHandler}/>
-                <button onClick={onClickHandler} >Add message</button>
+                {/*<TrainingContainer/>*/}
+                <InputTrainingBlock
+                    newMessage={props.newMessage}
+                    addMessage={props.addMessage}
+                    changeMessage={props.changeMessage}/>
             </div>
         </div>
     )
 }
+
+const mapStateToProps = (state: AppRootType): mstpType=> {
+    return {
+        tasks: state.trainingPage.tasks,
+        newMessage: state.trainingPage.newTask
+    }
+
+}
+const mapDispatchToProps = (dispatch: Dispatch): mdtpType => {
+    return {
+        changeMessage: (message: string) => {
+            dispatch(ChangeTrainingTaskTextAC(message))
+        },
+        addMessage: () => {
+            dispatch(AddTrainingTaskAC())
+        }
+    }
+}
+export const TrainingContainer = connect<mstpType, mdtpType, {}, AppRootType>(mapStateToProps, mapDispatchToProps)(Training);
+

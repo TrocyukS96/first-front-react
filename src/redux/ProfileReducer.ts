@@ -1,6 +1,8 @@
 import PostLogo from "../assets/images/main/profile/logo1.jpg";
-import {ActionTypes, MessageType, ProfilePageType, StatePostType} from "./state";
-
+import {
+    ProfilePageType,
+    StatePostType
+} from "./state";
 
 const initialState = {
     posts: [
@@ -21,24 +23,43 @@ const initialState = {
         }
 
     ],
-    newPost: ''
+    newPost: '123'
+} as ProfilePageType
+
+export const addTaskAC = () =>{
+
+    return({type: 'ADD-TASK'} as const)
+
+}                                                ///возвращаемое значение мы типизируем после круглых кавычек в функциях
+export const ChangePostTextAC = (newText: string) => {
+    return {
+        type: "CHANGE-POST-TEXT",
+        newText: newText
+    } as const
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
+type addTaskAT = ReturnType<typeof addTaskAC>
+type ChangePostTextAT = ReturnType<typeof ChangePostTextAC>
 
-    if (action.type === "ADD-TASK") {
-        const newPost: StatePostType = {
-            id: new Date().getTime(),
-            text: state.newPost,
-            img: PostLogo,
-            likeCount: 0
+type ActionsType = addTaskAT | ChangePostTextAT
+
+
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
+    switch (action.type) {
+        case "ADD-TASK": {
+            const newPost: StatePostType = {
+                id: new Date().getTime(),
+                text: state.newPost,
+                img: PostLogo,
+                likeCount: 0
+            }
+            return {...state, posts: [...state.posts, newPost]}
+
         }
-        if (state.newPost) {
-            state.posts.push(newPost)
-            state.newPost = ''
+        case "CHANGE-POST-TEXT": {
+            return {...state, newPost: action.newText}
         }
-    } else if (action.type === "CHANGE-POST-TEXT") {
-        state.newPost = action.newText
+        default:
+            return state
     }
-    return state
 }

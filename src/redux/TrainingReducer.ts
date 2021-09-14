@@ -1,4 +1,4 @@
-import {ActionTypes, addTrainTask, changeTrainTask, TrainingPageType} from "./state";
+import {addTrainTask, changeTrainTask, TrainingPageType} from "./state";
 
 const initialState = {
     tasks: [
@@ -7,26 +7,40 @@ const initialState = {
         {id: 3, title: 'Sport', descriptions: 'Its useful; for health', score: 346}
     ],
     newTask: 'Maybe dancing'
-}
+}as TrainingPageType
+export const AddTrainingTaskAC = () => ({
+        type:addTrainTask
+    } as const)
+export const ChangeTrainingTaskTextAC = (newTask:string) => ({
+            type:changeTrainTask,
+            newTask: newTask
+        } as const
+    )
+type AddTrainingTaskAT = ReturnType<typeof AddTrainingTaskAC>
+type ChangeTrainingTaskTextAT = ReturnType<typeof ChangeTrainingTaskTextAC>
 
- const trainingReducer = (state:TrainingPageType = initialState, action:ActionTypes) => {
-  if (action.type === addTrainTask)  {
-      const newTaskText = {
-        id: new Date().getTime(),
-        title:'Add task',
-        descriptions:state.newTask,
-        score:200
-      }
-      if(state.newTask){
-          state.tasks.push(newTaskText)
-          state.newTask = ''
-      }
+type ActionsType = AddTrainingTaskAT | ChangeTrainingTaskTextAT
 
-  }else if (action.type === changeTrainTask){
-      state.newTask = action.newTask
+const trainingReducer = (state: TrainingPageType = initialState, action: ActionsType) => {
+    switch (action.type) {
+        case "ADD_TRAIN_TASK": {
+            const newTaskText = {
+                id: new Date().getTime(),
+                title: 'Add task',
+                descriptions: state.newTask,
+                score: 200
+            }
+            let stateCopy = {...state, tasks: [...state.tasks, newTaskText]}
+            stateCopy.newTask = ''
+            return stateCopy
+        }
+        case "CHANGE_TRAIN_TASK": {
+            return {...state, newTask: action.newTask}
+        }
+        default:
+            return state
+    }
 
-  }
-  return state
 }
 
 export default trainingReducer

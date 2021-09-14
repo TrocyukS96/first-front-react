@@ -1,41 +1,31 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/Header';
-import Profile from './components/profile/Profile';
+import  {ProfileContainer} from './components/profile/Profile';
 import Sidebar from './components/sidebar/Sidebar';
+
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
-import {Dialogs} from './components/dialogs/Dialogs';
-import {ActionTypes, StateType, StoreType} from "./redux/state";
-import {Training} from "./components/training/Training";
+import {DialogsContainer} from './components/dialogs/Dialogs';
+import {AppRootType} from "./redux/redux-store";
+import {TrainingContainer} from "./components/training/Training";
 
 type PropsType = {
-    state: StateType
-    dispatch:(action:ActionTypes)=>void
-
+    state: AppRootType
 }
 
 const App = (props: PropsType) => {
+// const App = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <Route path={"/Profile"}
-                           render={() => <Profile
-                               dispatch ={props.dispatch}
-                               profilePage={props.state.profilePage}
-                           />}/>
+                       render={() => <ProfileContainer />}/>
                 <Route path={"/Dialogs"}
-                       render={() => <Dialogs
-                           dispatch ={props.dispatch}
-                           dialogsPageState={props.state.dialogsPage}
-                       />}/>
+                       // render={() => <Dialogs dialogsPageState={props.state.dialogsPage}/>}/>
+                       render={() => <DialogsContainer />}/>
                 <Route path={"/Training"}
-                       render={() => <Training
-                           dispatch ={props.dispatch}
-                           trainingPageState = {props.state.trainingPage}
-                       />}/>
-
-
+                       render={() => <TrainingContainer />}/>
                 {/*<Route path={"/Messages"} render = {() => <News/>  } />*/}
                 {/*<Route path={"/Messages"} render = {() => <Settings/>  } />*/}
                 <Redirect from='/' to='/Profile'/>
