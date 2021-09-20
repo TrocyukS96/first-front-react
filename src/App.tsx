@@ -8,6 +8,7 @@ import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {DialogsContainer} from './components/dialogs/Dialogs';
 import {AppRootType} from "./redux/redux-store";
 import {TrainingContainer} from "./components/training/Training";
+import {UsersContainer} from "./components/users/Users";
 
 type PropsType = {
     state: AppRootType
@@ -26,6 +27,8 @@ const App = (props: PropsType) => {
                        render={() => <DialogsContainer />}/>
                 <Route path={"/Training"}
                        render={() => <TrainingContainer />}/>
+                <Route path={"/Users"}
+                       render={() => <UsersContainer/>}/>
                 {/*<Route path={"/Messages"} render = {() => <News/>  } />*/}
                 {/*<Route path={"/Messages"} render = {() => <Settings/>  } />*/}
                 <Redirect from='/' to='/Profile'/>

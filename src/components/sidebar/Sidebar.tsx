@@ -12,7 +12,7 @@ const Sidebar =()=>{
             <li className={s.sidebarItem}><NavLink className={s.sidebarLink} activeClassName={s.activeLink} to="/Profile">Profile</NavLink> </li>
             <li className={s.sidebarItem}><NavLink className={s.sidebarLink} activeClassName={s.activeLink} to="/Dialogs">Dialogs</NavLink> </li>
             <li className={s.sidebarItem}><NavLink className={s.sidebarLink} activeClassName={s.activeLink} to="/Training">Training</NavLink> </li>
-
+            <li className={s.sidebarItem}><NavLink className={s.sidebarLink} activeClassName={s.activeLink} to="/Users">Users</NavLink> </li>
             <li className={s.sidebarItem}><NavLink className={s.sidebarLink} activeClassName={s.activeLink} to="/News">News</NavLink> </li>
             <li className={s.sidebarItem}><NavLink className={s.sidebarLink} activeClassName={s.activeLink} to="/Settings">Settings</NavLink> </li>
          </ul>

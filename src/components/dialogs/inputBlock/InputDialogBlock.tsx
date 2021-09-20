@@ -34,7 +34,6 @@ export const InputDialogBlock = (props: PropsType) => {
         <div className={s.inputFormBlock}>
             <input type="text" onChange={onChangeMessageHandler} value={props.newPost}/>
             <button onClick={() => {
-                debugger
                 props.addMessage()
                 props.changeMessage('')
             }

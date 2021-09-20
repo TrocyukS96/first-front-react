@@ -40,7 +40,6 @@ type changeDialogsTextAT = ReturnType<typeof changeDialogsTextAC>
 type ActionsTypes = addDialogsTextAT | changeDialogsTextAT
 
 export const dialogsReducer = (state: dialogsPageType = initialState, action: ActionsTypes) => {
-    debugger
     switch (action.type) {
 
         case addDialogsMessage: {
