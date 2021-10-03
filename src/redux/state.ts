@@ -23,6 +23,7 @@ export type StateType = {
 export type ProfilePageType = {
     posts: StatePostType[]
     newPost: string
+    profile:any
 }
 export type StatePostType = {
     id: number
@@ -126,7 +127,8 @@ export let store: StoreType = {
                 }
 
             ],
-            newPost: ''
+            newPost: '',
+            profile:null
         },
         dialogsPage: {
             messages: [

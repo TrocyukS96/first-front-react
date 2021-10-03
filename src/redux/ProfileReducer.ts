@@ -23,25 +23,17 @@ const initialState = {
         }
 
     ],
-    newPost: '123'
+    newPost: '123',
+    profile:null
 } as ProfilePageType
 
-export const addTaskAC = () =>{
 
-    return({type: 'ADD-TASK'} as const)
 
-}                                                ///возвращаемое значение мы типизируем после круглых кавычек в функциях
-export const ChangePostTextAC = (newText: string) => {
-    return {
-        type: "CHANGE-POST-TEXT",
-        newText: newText
-    } as const
-}
+type addTaskAT = ReturnType<typeof addTask>
+type ChangePostTextAT = ReturnType<typeof changePostText>
+type setUsersProfileAT = ReturnType<typeof setUsersProfile>
 
-type addTaskAT = ReturnType<typeof addTaskAC>
-type ChangePostTextAT = ReturnType<typeof ChangePostTextAC>
-
-type ActionsType = addTaskAT | ChangePostTextAT
+type ActionsType = addTaskAT | ChangePostTextAT | setUsersProfileAT
 
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
@@ -59,7 +51,27 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case "CHANGE-POST-TEXT": {
             return {...state, newPost: action.newText}
         }
+        case "SET-USERS-PROFILE":{
+            return {...state, profile:action.profile}
+        }
         default:
             return state
     }
+}
+export const addTask = () =>{
+
+    return({type: 'ADD-TASK'} as const)
+
+}                                                ///возвращаемое значение мы типизируем после круглых кавычек в функциях
+export const changePostText = (newText: string) => {
+    return {
+        type: "CHANGE-POST-TEXT",
+        newText
+    } as const
+}
+export const setUsersProfile = (profile:any) => {
+    return {
+        type:"SET-USERS-PROFILE",
+        profile
+    }as const
 }

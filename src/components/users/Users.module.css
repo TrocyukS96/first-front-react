@@ -83,3 +83,10 @@ img {
 .country{
     margin-bottom: 30px;
 }
+
+.activePage{
+    font-weight: 700;
+    font-size: 25px;
+
+    color:black;
+}

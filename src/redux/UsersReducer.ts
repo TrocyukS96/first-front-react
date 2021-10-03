@@ -1,8 +1,3 @@
-import smilik from './../assets/images/dialogs/smilik.jpg';
-import kazak from "../assets/images/dialogs/kazak.jpg";
-import gentlemen from "../assets/images/dialogs/jentlemen.jpg";
-import {v1} from "uuid";
-
 export type UserType = {
     id: string
     name: string
@@ -13,60 +8,43 @@ export type UserType = {
     status: string
 }
 export type UsersPageType = {
-    users: Array<UserType>
+    users: Array<any>
+    pageSize: number
+    totalCount: number
+    currentPage: number
+    isFetching: boolean
 }
 
 type followUserAT = {
     type: 'FOLLOW-USER',
-    userID:string,
+    userID: string,
 }
 
 type setUsersAT = {
-    type:'SET-USERS',
-    newUsers:UserType[]
+    type: 'SET-USERS',
+    newUsers: UserType[]
 }
-type ActionsTypes = followUserAT | setUsersAT
+type SetCurrentPageAT = {
+    type: 'SET-CURRENT-PAGE'
+    currentPage: number
+}
+type setTotalUsersCountAT = {
+    type: 'SET-TOTAL-USERS-COUNT'
+    usersCount: Number
+}
+type setToggleFetchingAT = {
+    type: 'TOGGLE_IS_FETCHING'
+    isFetching: boolean
+}
+type ActionsTypes = followUserAT | setUsersAT | SetCurrentPageAT | setTotalUsersCountAT | setToggleFetchingAT
 
 const initialState: UsersPageType = {
-    users: [
-        // {
-        //     id: v1(),
-        //     name: 'Ivan',
-        //     country: "Belarus",
-        //     city: 'Minsk',
-        //     img: kazak,
-        //     followed: true,
-        //     status: 'Im looking forward to see you'
-        // },
-        // {
-        //     id: v1(),
-        //     name: 'Dimon',
-        //     country: "Belarus",
-        //     city: 'Molodechno',
-        //     img: gentlemen,
-        //     followed: false,
-        //     status: 'This award has passed me by'
-        // },
-        // {
-        //     id: v1(),
-        //     name: 'Mujlan',
-        //     country: "Ukraine",
-        //     city: 'Kiev',
-        //     img: smilik,
-        //     followed: true,
-        //     status: 'to be or not to be, that the question'
-        // },
-        // {
-        //     id: v1(),
-        //     name: 'Korefan',
-        //     country: "Russia",
-        //     city: 'Piter',
-        //     img: gentlemen,
-        //     followed: false,
-        //     status: 'looking for a better life'
-        // }
+    users: [],
+    pageSize: 5,  // столько юзеров будет на 1 страничке
+    totalCount: 0,  // всего юзеров на странице
+    currentPage: 2, // текущая страница
+    isFetching: false
 
-    ]
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes) => {
@@ -77,33 +55,67 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
                 ...state,
                 users: state.users.map(user => user.id === action.userID ? {
                     ...user,
-                    followed:!user.followed
+                    followed: !user.followed
                 } : user)
             }
             return {...state}
         }
-        case 'SET-USERS':{
+        case 'SET-USERS': {
             return {
                 ...state,
                 users: [...state.users, ...action.newUsers]
             }
         }
+        case 'SET-CURRENT-PAGE': {
+            return {
+                ...state, currentPage: action.currentPage
+            }
+        }
+        case 'SET-TOTAL-USERS-COUNT': {
+            return {
+                ...state, totalCount: action.usersCount
+            }
+        }
+        case 'TOGGLE_IS_FETCHING': {
+            return {
+                ...state, isFetching: action.isFetching
+            }
+        }
+
 
         default:
             return state
     }
 }
 
-export const followUserAC = (userID: string) => {
+export const followUser = (userID: string) => {
     return {
         type: 'FOLLOW-USER',
         userID,
     } as const
 }
-export const setUsersAC = (newUsers:UserType[]) =>{
+export const setUsers = (newUsers: UserType[]) => {
     return {
-        type : "SET-USERS",
+        type: "SET-USERS",
         newUsers
-    }as const
+    } as const
+}
+export const setCurrentPage = (currentPage: number) => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        currentPage
+    } as const
+}
+export const setTotalUsersCount = (usersCount: number) => {
+    return {
+        type: "SET-TOTAL-USERS-COUNT",
+        usersCount
+    } as const
+}
+export const toggleFetching = (isFetching: boolean) => {
+    return {
+        type: "TOGGLE_IS_FETCHING",
+        isFetching
+    } as const
 }
 

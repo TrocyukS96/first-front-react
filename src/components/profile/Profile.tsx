@@ -1,76 +1,56 @@
 import React from 'react';
-
 import s from './Profile.module.css';
-import ProfileImg from './../../assets/images/main/main-img.jpg';
-import PersonImg from './../../assets/images/main/person-img.jpg';
 import Posts from './posts/Posts';
-import {Dispatch} from "redux";
-import {addTaskAC, ChangePostTextAC} from "../../redux/ProfileReducer";
-import {connect} from "react-redux";
 import ProfileForm from "./profileForm/ProfileForm";
-import {AppRootType} from "../../redux/redux-store";
+import {PostType} from "./ProfileContainer";
+import ProfileInfo from "./profileInfo/ProfileInfo";
 
-type PostType = {
-    id: number
-    text: string
-    img: any
-    likeCount: number
+export type ProfileType = {
+    "aboutMe": string,
+    "contacts": {
+        "facebook": string,
+        "website": any,
+        "vk": string,
+        "twitter": string,
+        "instagram": string,
+        "youtube": any,
+        "github": string,
+        "mainLink": any
+    },
+    "lookingForAJob": boolean,
+    "lookingForAJobDescription": string,
+    "fullName": string,
+    "userId": number,
+    "photos": {
+        "small": string,
+        "large": string
+    }
 }
-type mstpType = {
+
+type ProfilePropsType = {
     newPostValue: string
+    profile: ProfileType
     posts: PostType[]
-
-}
-type mdtpType = {
-    changePostText: (newPostText: string) => void
-    sendPost: () => void
+    addTask: () => void
+    changePostText: (newText: string) => void
+    setUsersProfile: (profile: any) => void
 }
 
-type PropsType = mstpType & mdtpType
-
-function Profile(props: PropsType) {
+function Profile(props: ProfilePropsType) {
+    console.log(props.profile)
     return (
         <main className={s.profile}>
-            <img className={s.profileImg} src={ProfileImg} alt="profile-image"/>
-            <div className={s.personBlock}>
-                <img className={s.personImg} src={PersonImg} alt="person-image"/>
-                <div className={s.personContent}>
-                    <h3 className={s.personTitle}>StanislavIT</h3>
-                    <div className={s.personData}>
-                        <p className={s.personBirth}>Date of birth: <span>29 of Jenuary</span></p>
-                        <p className={s.personCity}>City: <span>Molodechno</span></p>
-                        <p className={s.personEducation}>Education: <span>University of civil protection</span></p>
-                        <p className={s.personSite}>Web Site: <span>https://github.com/TrocyukS96</span></p>
-                    </div>
-                </div>
-            </div>
+            <ProfileInfo profile={props.profile}/>
             <ProfileForm
                 newPostValue={props.newPostValue}
-                sendPost={props.sendPost}
-                changePostText={props.changePostText}/>
+                sendPost={props.addTask}
+                changePostText={props.changePostText}
+            />
 
             <Posts posts={props.posts}/>
         </main>
     );
 }
 
-
-const mapStateToProps = (state: AppRootType): mstpType => {
-    return {
-        newPostValue: state.profilePage.newPost,
-        posts: state.profilePage.posts
-    }
-}
-const mapDispatchToProps = (dispatch: Dispatch): mdtpType => {
-    return {
-        sendPost: () => {
-            dispatch(addTaskAC())
-        },
-        changePostText: (newPostText: string) => {
-            ChangePostTextAC(newPostText)
-        }
-    }
-}
-
-export const ProfileContainer = connect<mstpType, mdtpType, {}, AppRootType>(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;
 

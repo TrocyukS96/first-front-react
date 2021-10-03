@@ -15,7 +15,6 @@ function ProfileForm(props: ProfileFormPropsType) {
     const onClickPostHandler = () => {
         props.sendPost()
         props.changePostText('')
-
     }
     const onChangeTextPost = (e: ChangeEvent<HTMLTextAreaElement>) => {
         debugger
