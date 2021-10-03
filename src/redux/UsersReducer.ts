@@ -19,6 +19,10 @@ type followUserAT = {
     type: 'FOLLOW-USER',
     userID: string,
 }
+type UnfollowUserAT = {
+    type: 'UNFOLLOW-USER',
+    userID: string,
+}
 
 type setUsersAT = {
     type: 'SET-USERS',
@@ -36,7 +40,7 @@ type setToggleFetchingAT = {
     type: 'TOGGLE_IS_FETCHING'
     isFetching: boolean
 }
-type ActionsTypes = followUserAT | setUsersAT | SetCurrentPageAT | setTotalUsersCountAT | setToggleFetchingAT
+type ActionsTypes = followUserAT | UnfollowUserAT | setUsersAT | SetCurrentPageAT | setTotalUsersCountAT | setToggleFetchingAT
 
 const initialState: UsersPageType = {
     users: [],
@@ -50,12 +54,21 @@ const initialState: UsersPageType = {
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case 'FOLLOW-USER': {
-            // return {...state,users:state.users.map(m=>m.id===action.userID ? m.followed:action.userValue)}
             return {
                 ...state,
                 users: state.users.map(user => user.id === action.userID ? {
                     ...user,
-                    followed: !user.followed
+                    followed: true
+                } : user)
+            }
+            return {...state}
+        }
+        case 'UNFOLLOW-USER': {
+            return {
+                ...state,
+                users: state.users.map(user => user.id === action.userID ? {
+                    ...user,
+                    followed: false
                 } : user)
             }
             return {...state}
@@ -81,8 +94,6 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
                 ...state, isFetching: action.isFetching
             }
         }
-
-
         default:
             return state
     }
@@ -91,6 +102,12 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
 export const followUser = (userID: string) => {
     return {
         type: 'FOLLOW-USER',
+        userID,
+    } as const
+}
+export const UnfollowUser = (userID: string) => {
+    return {
+        type: 'UNFOLLOW-USER',
         userID,
     } as const
 }

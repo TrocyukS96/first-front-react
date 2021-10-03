@@ -1,18 +1,25 @@
 import React from 'react';
-
+import {NavLink} from "react-router-dom";
 import s from './Header.module.css';
 
 import Logo from './../../assets/images/logo.webp';
 
-function Header() {
-   return (
+type HeaderPropsType = {
+    isAuth: boolean
+    login: any
+}
 
-      <header className={s.header}>
-         <img className={s.logoImg} src={Logo} />
-         <div className={s.headerContent}>Supported by IT-Incubator</div>
-      </header>
+function Header(props:HeaderPropsType) {
+    return (
 
-   );
+        <header className={s.header}>
+            <img className={s.logoImg} src={Logo}/>
+            <div className={s.headerLogin}>
+                {props.isAuth ? props.login : <NavLink to={'/login'}>login</NavLink>}
+            </div>
+        </header>
+
+    );
 }
 
 export default Header;

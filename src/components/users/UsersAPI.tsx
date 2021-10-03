@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import {Preloader} from "../preloader/Preloader";
 import {Users} from "./Users";
+import {UnfollowUser} from "../../redux/UsersReducer";
 
 class UsersAPI extends React.Component <any> {
     componentDidMount() {
@@ -42,6 +43,7 @@ class UsersAPI extends React.Component <any> {
                     setUsers={this.props.setUsers}
                     users={this.props.users}
                     followUser={this.props.followUser}
+                    UnfollowUser={this.props.UnfollowUser}
                     currentPage={this.props.currentPage}
                 />
             </>

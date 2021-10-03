@@ -1,26 +1,22 @@
 import React from 'react';
 import './App.css';
-import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {DialogsContainer} from './components/dialogs/Dialogs';
 import {AppRootType} from "./redux/redux-store";
 import {TrainingContainer} from "./components/training/Training";
 import {UsersContainer} from './components/users/UsersContainer';
-import ProfileAPI from "./components/profile/ProfileAPI";
 import {ProfileContainer} from "./components/profile/ProfileContainer";
-
-
+import { HeaderContainer } from './components/header/HeaderContainer';
 type PropsType = {
     state: AppRootType
 }
-
 const App = (props: PropsType) => {
 // const App = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
-                <Header/>
+                <HeaderContainer/>
                 <Route path={"/Profile/:userId?"}
                        render={() => <ProfileContainer/>}/>
                 <Route path={"/Dialogs"}

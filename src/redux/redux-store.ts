@@ -3,12 +3,14 @@ import {profileReducer} from "./ProfileReducer";
 import {dialogsReducer} from "./DialogsReducer";
 import trainingReducer from "./TrainingReducer";
 import {usersReducer} from "./UsersReducer";
+import {authReducer} from "./AuthReducer";
 
 let reducers = combineReducers({    //special function to combine reducers
     profilePage:profileReducer,          // create an obj, with property profileReducer and value profileReducer
     dialogsPage:dialogsReducer,
     trainingPage:trainingReducer,
-    usersPage:usersReducer
+    usersPage:usersReducer,
+    auth:authReducer
     ///воспринимать данный обьект больше как state c ветками, profile, dialogs, training
 });
 

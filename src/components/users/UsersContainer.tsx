@@ -6,7 +6,7 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
-    toggleFetching,
+    toggleFetching, UnfollowUser,
     UserType
 } from "../../redux/UsersReducer";
 import UsersAPI from "./UsersAPI";
@@ -22,6 +22,7 @@ type MSTPType = {
 
 type MDTPType = {
     followUser: (usersID: string) => void,
+    UnfollowUser: (usersID: string) => void,
     setUsers: (newUsers: UserType[]) => void,
     setCurrentPage: (currentPage: number) => void,
     setTotalUsersCount: (usersCount: number) => void,
@@ -41,6 +42,7 @@ const mapStateToProps = (state: any): MSTPType => {
 }
 export const UsersContainer = connect<MSTPType, MDTPType, {}, AppRootType>(mapStateToProps, {
     followUser,
+    UnfollowUser,
     setUsers,
     setCurrentPage,
     setTotalUsersCount,

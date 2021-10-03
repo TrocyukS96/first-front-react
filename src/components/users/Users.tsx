@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import undefinedImg from "../../assets/images/users/user-undefined.jpg";
 import axios from "axios";
 import { NavLink } from 'react-router-dom';
+import {UnfollowUser} from "../../redux/UsersReducer";
 
 type UsersType = {
     totalCount:number
@@ -12,6 +13,7 @@ type UsersType = {
     setUsers:(newUsers:UsersType[])=>void
     users:UsersType[]
     followUser:(usersID:string) => void
+    UnfollowUser:(usersID:string) => void
 
 }
 
@@ -32,6 +34,7 @@ export const Users = (props:UsersType ) => {
         )
 
     }
+    console.log(props.users)
     return(
         <div className={s.users}>
             <div>
