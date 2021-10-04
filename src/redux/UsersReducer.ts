@@ -13,8 +13,8 @@ export type UsersPageType = {
     totalCount: number
     currentPage: number
     isFetching: boolean
+    followInProgress:any
 }
-
 type followUserAT = {
     type: 'FOLLOW-USER',
     userID: string,
@@ -23,7 +23,11 @@ type UnfollowUserAT = {
     type: 'UNFOLLOW-USER',
     userID: string,
 }
-
+type togglefollowingInProgressAT = {
+    type: 'FOLLOWING_IN_PROGRESS',
+    isFetching: boolean,
+    userId:any
+}
 type setUsersAT = {
     type: 'SET-USERS',
     newUsers: UserType[]
@@ -40,17 +44,16 @@ type setToggleFetchingAT = {
     type: 'TOGGLE_IS_FETCHING'
     isFetching: boolean
 }
-type ActionsTypes = followUserAT | UnfollowUserAT | setUsersAT | SetCurrentPageAT | setTotalUsersCountAT | setToggleFetchingAT
-
+type ActionsTypes = followUserAT | UnfollowUserAT | setUsersAT | SetCurrentPageAT | setTotalUsersCountAT | setToggleFetchingAT | togglefollowingInProgressAT
 const initialState: UsersPageType = {
     users: [],
     pageSize: 5,  // столько юзеров будет на 1 страничке
     totalCount: 0,  // всего юзеров на странице
     currentPage: 2, // текущая страница
-    isFetching: false
+    isFetching: false,
+    followInProgress:[]
 
 }
-
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case 'FOLLOW-USER': {
@@ -72,6 +75,15 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
                 } : user)
             }
             return {...state}
+        }
+        case 'FOLLOWING_IN_PROGRESS':{
+            debugger
+            return{
+                ...state ,
+                followInProgress:action.isFetching
+                ? [...state.followInProgress, action.userId]
+                : state.followInProgress.filter((id:any) => id !== action.userId)
+            }
         }
         case 'SET-USERS': {
             return {
@@ -133,6 +145,13 @@ export const toggleFetching = (isFetching: boolean) => {
     return {
         type: "TOGGLE_IS_FETCHING",
         isFetching
+    } as const
+}
+export const togglefollowingInProgress = (isFetching: boolean, userId:any) => {
+    return {
+        type: "FOLLOWING_IN_PROGRESS",
+        isFetching,
+        userId
     } as const
 }
 

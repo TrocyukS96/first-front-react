@@ -2,6 +2,7 @@ import React from 'react';
 import {AppRootType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {
+    togglefollowingInProgress,
     followUser,
     setCurrentPage,
     setTotalUsersCount,
@@ -17,7 +18,8 @@ type MSTPType = {
     pageSize: number,
     totalCount: number,
     currentPage: number,
-    isFetching: boolean
+    isFetching: boolean,
+    followInProgress:[]
 }
 
 type MDTPType = {
@@ -26,7 +28,8 @@ type MDTPType = {
     setUsers: (newUsers: UserType[]) => void,
     setCurrentPage: (currentPage: number) => void,
     setTotalUsersCount: (usersCount: number) => void,
-    toggleFetching: (isFetching: boolean) => void
+    toggleFetching: (isFetching: boolean) => void,
+    togglefollowingInProgress: (isFetching: boolean, id:number) => void
 
 }
 type PropsType = MSTPType & MDTPType
@@ -36,7 +39,8 @@ const mapStateToProps = (state: any): MSTPType => {
         pageSize: state.usersPage.pageSize,
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followInProgress:state.usersPage.followInProgress
     }
 
 }
@@ -46,6 +50,7 @@ export const UsersContainer = connect<MSTPType, MDTPType, {}, AppRootType>(mapSt
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleFetching
+    toggleFetching,
+    togglefollowingInProgress
 })(UsersAPI);
 
