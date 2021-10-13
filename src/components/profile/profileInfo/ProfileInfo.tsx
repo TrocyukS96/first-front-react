@@ -9,7 +9,6 @@ type ProfileInfoPropsType = {
 }
 
 function ProfileInfo(props: ProfileInfoPropsType) {
-    console.log(props.profile)
     if(!props.profile){
         return <Preloader/>
     }
@@ -25,8 +24,6 @@ function ProfileInfo(props: ProfileInfoPropsType) {
             <li key={i}>{m}</li>
         )
     })
-    console.log(contacts)
-    console.log(props.profile)
     return (
         <div >
             <img className={s.profileImg} src={ ProfileImg } alt="profile-image"/>

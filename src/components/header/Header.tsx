@@ -13,7 +13,7 @@ function Header(props:HeaderPropsType) {
     return (
 
         <header className={s.header}>
-            <img className={s.logoImg} src={Logo}/>
+            <img className={s.logoImg} src={Logo} alt={'1234'}/>
             <div className={s.headerLogin}>
                 {props.isAuth ? props.login : <NavLink to={'/login'}>login</NavLink>}
             </div>

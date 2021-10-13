@@ -37,7 +37,6 @@ type ProfilePropsType = {
 }
 
 function Profile(props: ProfilePropsType) {
-    console.log(props.profile)
     return (
         <main className={s.profile}>
             <ProfileInfo profile={props.profile}/>

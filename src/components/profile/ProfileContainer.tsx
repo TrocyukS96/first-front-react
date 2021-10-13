@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addTask, changePostText, setUsersProfile} from "../../redux/ProfileReducer";
+import {addTask, changePostText, getProfile, setUsersProfile} from "../../redux/ProfileReducer";
 import {AppRootType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import ProfileAPI from './ProfileAPI';
@@ -22,6 +22,7 @@ type mdtpType = {
     addTask: () => void
     changePostText: (newText: string) => void
     setUsersProfile: (profile: any) => void
+    getProfile: (userId: any) => void
 }
 const mapStateToProps = (state: AppRootType): mstpType => {
     return {
@@ -36,6 +37,7 @@ const ProfileUrlDataContainer = withRouter(ProfileAPI) //
 export const ProfileContainer = connect<mstpType, mdtpType, {}, AppRootType>(mapStateToProps, {
     addTask,
     changePostText,
-    setUsersProfile
+    setUsersProfile,
+    getProfile
 })(ProfileUrlDataContainer);
 

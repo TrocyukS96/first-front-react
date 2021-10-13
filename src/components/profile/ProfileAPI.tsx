@@ -1,18 +1,14 @@
 import React from "react";
 import Profile from "./Profile";
-import {profileAPI} from "../api/api";
 
 class ProfileAPI extends React.Component<any, any> {
-
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId) {
-            userId = 2
-        }
-        profileAPI.setUsers(userId)
-            .then(data => {
-                this.props.setUsersProfile(data)
-            })
+        // profileAPI.setUsers(userId)
+        //     .then(data => {
+        //         this.props.setUsersProfile(data)
+        //     })
+        this.props.getProfile(userId)
     }
 
     render() {

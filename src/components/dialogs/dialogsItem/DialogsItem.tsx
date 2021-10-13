@@ -1,7 +1,5 @@
 import React from 'react';
 import s from './DialogsItem.module.css';
-import {dialogsPageType} from "../../../redux/state";
-
 type DialogsItemType = {
     messages: any
     // name:string
@@ -14,7 +12,7 @@ export const DialogsItem = (props: DialogsItemType) => {
         return (
             <li className={s.dialogsItem} key={i}>
                 <div className={s.user}>
-                    <img className={s.img} src={d.img} alt="user-image"/>
+                    <img className={s.img} src={d.img} alt="123"/>
                     <span className={s.userName}>{d.name}</span>
                 </div>
                 <p className={s.text}>{d.text}</p>

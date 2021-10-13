@@ -1,28 +1,31 @@
 import React from "react";
 import {Preloader} from "../preloader/Preloader";
 import {Users} from "./Users";
-import {usersApi} from "../api/api";
 
 class UsersAPI extends React.Component <any> {
     componentDidMount() {
-        this.props.toggleFetching(true)
-        usersApi.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.toggleFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            })
+        // this.props.toggleFetching(true)
+        // usersApi.getUsers(this.props.currentPage, this.props.pageSize)
+        //     .then(data => {
+        //         this.props.toggleFetching(false)
+        //         this.props.setUsers(data.items)
+        //         this.props.setTotalUsersCount(data.totalCount)
+        //     })
+        this.props.getUsersThunk(this.props.currentPage, this.props.pageSize)
     }
 
     onSetCurrentPage(currentPage: number) {
-        this.props.toggleFetching(true)
-        this.props.setCurrentPage(currentPage)
-        usersApi.getUsers(currentPage, this.props.pageSize)
-            .then(data => {
-                    this.props.toggleFetching(false)
-                    this.props.setUsers(data.items)
-                }
-            )
+        // this.props.toggleFetching(true)
+        // this.props.setCurrentPage(currentPage)
+        // usersApi.getUsers(currentPage, this.props.pageSize)
+        //
+        //     .then(data => {
+        //             console.log(data.users)
+        //             this.props.toggleFetching(false)
+        //             this.props.setUsers(data.users)
+        //         }
+        //     )
+        this.props.getUsersThunk(currentPage, this.props.pageSize)
 
     }
 
@@ -45,8 +48,10 @@ class UsersAPI extends React.Component <any> {
                     followUser={this.props.followUser}
                     UnfollowUser={this.props.UnfollowUser}
                     currentPage={this.props.currentPage}
-                    togglefollowingInProgress={this.props.togglefollowingInProgress}
+                    toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                     followInProgress={this.props.followInProgress}
+                    followUserThunk={this.props.followUserThunk}
+                    unFollowUserThunk={this.props.unFollowUserThunk}
 
                 />
             </>

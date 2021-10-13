@@ -3,6 +3,9 @@ import {
     ProfilePageType,
     StatePostType
 } from "./state";
+import {Dispatch} from "redux";
+import {authAPI, profileAPI} from "../components/api/api";
+import {setAuthUsersData} from "./AuthReducer";
 
 const initialState = {
     posts: [
@@ -74,4 +77,14 @@ export const setUsersProfile = (profile:any) => {
         type:"SET-USERS-PROFILE",
         profile
     }as const
+}
+
+export const getProfile = () => (dispatch:Dispatch) => {
+    authAPI.me()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let {id, email, login} = data
+                dispatch(setAuthUsersData(id, email, login))
+            }
+        })
 }

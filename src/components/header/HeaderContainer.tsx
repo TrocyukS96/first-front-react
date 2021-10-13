@@ -3,17 +3,17 @@ import {connect} from 'react-redux';
 import {AppRootType} from '../../redux/redux-store';
 import Header from "./Header";
 import {setAuthUsersData} from "../../redux/AuthReducer";
-import axios from "axios";
-import {authAPI} from "../api/api";
 class HeaderAPI extends React.Component<any, any> {
     componentDidMount() {
-        authAPI.setAuthUsers('https://social-network.samuraijs.com/api/1.0/auth/me')
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let {id, email, login} = data.data
-                    this.props.setAuthUsersData(id, email, login)
-                }
-            })
+        debugger
+        // authAPI.me()
+        //     .then(data => {
+        //         if (data.resultCode === 0) {
+        //             let {id, email, login} = data
+        //             this.props.setAuthUsersData(id, email, login)
+        //         }
+        //     })
+        this.props.getProfile()
 
     }
 

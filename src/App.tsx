@@ -8,6 +8,7 @@ import {TrainingContainer} from "./components/training/Training";
 import {UsersContainer} from './components/users/UsersContainer';
 import {ProfileContainer} from "./components/profile/ProfileContainer";
 import { HeaderContainer } from './components/header/HeaderContainer';
+import {Login} from "./components/login/Login";
 type PropsType = {
     state: AppRootType
 }
@@ -26,6 +27,9 @@ const App = (props: PropsType) => {
                        render={() => <TrainingContainer />}/>
                 <Route path={"/Users"}
                        render={() => <UsersContainer/>}/>
+                <Route path={"/Login"}
+                       render={() => <Login/>}/>
+
                 {/*<Route path={"/Messages"} render = {() => <News/>  } />*/}
                 {/*<Route path={"/Messages"} render = {() => <Settings/>  } />*/}
                 <Redirect from='/' to='/Profile'/>

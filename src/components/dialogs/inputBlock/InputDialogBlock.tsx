@@ -1,10 +1,5 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './InputBlock.module.css';
-import {dialogsPageType} from "../../../redux/state";
-import {Dispatch} from "redux";
-import {addDialogsTextAC, changeDialogsTextAC} from "../../../redux/DialogsReducer";
-import {connect} from "react-redux";
-import {AppRootType} from "../../../redux/redux-store";
 
 type PropsType = {
     newPost: string
@@ -37,7 +32,8 @@ export const InputDialogBlock = (props: PropsType) => {
                 props.addMessage()
                 props.changeMessage('')
             }
-            }>Add message</button>
+            }>Add message
+            </button>
         </div>
     )
 }

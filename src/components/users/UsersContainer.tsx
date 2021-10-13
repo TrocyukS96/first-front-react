@@ -2,24 +2,26 @@ import React from 'react';
 import {AppRootType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {
-    togglefollowingInProgress,
-    followUser,
+    followUser, followUserThunk,
+    getUsersThunk,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
-    toggleFetching, UnfollowUser,
+    toggleFetching,
+    toggleFollowingInProgress,
+    UnfollowUser, unFollowUserThunk,
     UserType
 } from "../../redux/UsersReducer";
 import UsersAPI from "./UsersAPI";
 
 
 type MSTPType = {
-    users: UserType[],
+    users: UserType,
     pageSize: number,
     totalCount: number,
     currentPage: number,
     isFetching: boolean,
-    followInProgress:[]
+    followInProgress: []
 }
 
 type MDTPType = {
@@ -29,7 +31,10 @@ type MDTPType = {
     setCurrentPage: (currentPage: number) => void,
     setTotalUsersCount: (usersCount: number) => void,
     toggleFetching: (isFetching: boolean) => void,
-    togglefollowingInProgress: (isFetching: boolean, id:number) => void
+    toggleFollowingInProgress: (isFetching: boolean, id: number) => void
+    getUsersThunk: (currentPage: number, pageSize: number) => void
+    followUserThunk: (userId:any) => void
+    unFollowUserThunk: (userId:any) => void
 
 }
 type PropsType = MSTPType & MDTPType
@@ -40,7 +45,7 @@ const mapStateToProps = (state: any): MSTPType => {
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followInProgress:state.usersPage.followInProgress
+        followInProgress: state.usersPage.followInProgress
     }
 
 }
@@ -51,6 +56,9 @@ export const UsersContainer = connect<MSTPType, MDTPType, {}, AppRootType>(mapSt
     setCurrentPage,
     setTotalUsersCount,
     toggleFetching,
-    togglefollowingInProgress
+    toggleFollowingInProgress,
+    getUsersThunk,
+    followUserThunk,
+    unFollowUserThunk
 })(UsersAPI);
 
