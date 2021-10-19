@@ -10,7 +10,7 @@ reportWebVitals();
 
 ReactDOM.render(
     <Provider store={store}>
-        <App state={store.getState()} />
+        <App  />
         {/*<App />*/}
     </Provider>,
     document.getElementById('root')

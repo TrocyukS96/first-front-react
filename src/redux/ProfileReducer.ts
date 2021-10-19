@@ -1,11 +1,5 @@
 import PostLogo from "../assets/images/main/profile/logo1.jpg";
-import {
-    ProfilePageType,
-    StatePostType
-} from "./state";
-import {Dispatch} from "redux";
-import {authAPI, profileAPI} from "../components/api/api";
-import {setAuthUsersData} from "./AuthReducer";
+import {ProfilePageType, StatePostType} from "./state";
 
 const initialState = {
     posts: [
@@ -27,7 +21,27 @@ const initialState = {
 
     ],
     newPost: '123',
-    profile:null
+    profile:{
+        aboutMe: 'I/m Stanislav',
+        contacts: {
+            facebook: 'nope',
+            website: 'https://vk.com/id299281641',
+            vk: 'https://vk.com/id299281641',
+            twitter: '123',
+            instagram: 'https://www.instagram.com/',
+            youtube: 'https://www.youtube.com/',
+            github: 'https://github.com/TrocyukS96',
+            mainLink: ''
+        },
+        lookingForAJob: true,
+        lookingForAJobDescription: 'wanna find a better job ',
+        fullName: 'Stanislav',
+        userId: 1234,
+        photos: {
+            small: null,
+            large: null
+        }
+    }
 } as ProfilePageType
 
 
@@ -79,12 +93,3 @@ export const setUsersProfile = (profile:any) => {
     }as const
 }
 
-export const getProfile = () => (dispatch:Dispatch) => {
-    authAPI.me()
-        .then(data => {
-            if (data.resultCode === 0) {
-                let {id, email, login} = data
-                dispatch(setAuthUsersData(id, email, login))
-            }
-        })
-}

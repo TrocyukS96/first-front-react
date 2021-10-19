@@ -12,12 +12,6 @@ function ProfileInfo(props: ProfileInfoPropsType) {
     if(!props.profile){
         return <Preloader/>
     }
-
-    var data = {
-        "name 1":"a",
-        "name 2":"b",
-        "name 3":"b",
-    };
     var contacts = [...Object.values(props.profile.contacts), ...Object.keys(props.profile.contacts)]
     const contactsMap = contacts.map((m,i)=>{
         return(

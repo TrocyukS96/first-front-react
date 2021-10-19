@@ -1,30 +1,35 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {AppRootType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {
-    followUser, followUserThunk,
+    followUser,
+    followUserThunk,
     getUsersThunk,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
     toggleFetching,
     toggleFollowingInProgress,
-    UnfollowUser, unFollowUserThunk,
+    UnfollowUser,
+    unFollowUserThunk,
     UserType
 } from "../../redux/UsersReducer";
 import UsersAPI from "./UsersAPI";
+import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
-type MSTPType = {
+type MapStateToPropsType = {
     users: UserType,
     pageSize: number,
     totalCount: number,
     currentPage: number,
     isFetching: boolean,
     followInProgress: []
+
 }
 
-type MDTPType = {
+type MapDispatchToProps = {
     followUser: (usersID: string) => void,
     UnfollowUser: (usersID: string) => void,
     setUsers: (newUsers: UserType[]) => void,
@@ -33,32 +38,33 @@ type MDTPType = {
     toggleFetching: (isFetching: boolean) => void,
     toggleFollowingInProgress: (isFetching: boolean, id: number) => void
     getUsersThunk: (currentPage: number, pageSize: number) => void
-    followUserThunk: (userId:any) => void
-    unFollowUserThunk: (userId:any) => void
+    followUserThunk: (userId: any) => void
+    unFollowUserThunk: (userId: any) => void
 
 }
-type PropsType = MSTPType & MDTPType
-const mapStateToProps = (state: any): MSTPType => {
+const mapStateToProps = (state: any): MapStateToPropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followInProgress: state.usersPage.followInProgress
+        followInProgress: state.usersPage.followInProgress,
     }
-
 }
-export const UsersContainer = connect<MSTPType, MDTPType, {}, AppRootType>(mapStateToProps, {
-    followUser,
-    UnfollowUser,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    toggleFetching,
-    toggleFollowingInProgress,
-    getUsersThunk,
-    followUserThunk,
-    unFollowUserThunk
-})(UsersAPI);
+export default compose<ComponentType>(
+    connect<MapStateToPropsType, MapDispatchToProps, {}, AppRootType>(mapStateToProps, {
+        followUser,
+        UnfollowUser,
+        setUsers,
+        setCurrentPage,
+        setTotalUsersCount,
+        toggleFetching,
+        toggleFollowingInProgress,
+        getUsersThunk,
+        followUserThunk,
+        unFollowUserThunk
+    }),
+    WithAuthRedirect
+)(UsersAPI)
 

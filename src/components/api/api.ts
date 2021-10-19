@@ -13,10 +13,10 @@ export const usersApi = {
         }).then(response => response.data)
     },
     followUser(id:any){
-        return instance.post(`1.0/follow/${id}`).then(response => response.data)
+        return instance.post(`follow/${id}`).then(response => response.data)
     },
     unFollowUser(id:any){
-        return instance.delete(`1.0/follow/${id}`).then(response => response.data)
+        return instance.delete(`follow/${id}`).then(response => response.data)
     }
 
 }

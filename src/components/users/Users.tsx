@@ -16,10 +16,9 @@ type UsersPropsType = {
     UnfollowUser: (usersID: string) => void
     toggleFollowingInProgress: (isFetching: boolean, id: number) => void
     followInProgress: any
-    followUserThunk:(userId:any)=>void
-    unFollowUserThunk:(userId:any)=>void
+    followUserThunk: (userId: any) => void
+    unFollowUserThunk: (userId: any) => void
 }
-
 export const Users = (props: UsersPropsType) => {
     let pageCount = Math.ceil(props.totalCount / props.pageSize)
     let pages = [];
@@ -54,28 +53,12 @@ export const Users = (props: UsersPropsType) => {
                                             <button disabled={props.followInProgress.some((id: number) => id === m.id)}
                                                     className={s.follow}
                                                     onClick={() => {
-                                                        // props.toggleFollowingInProgress(true, m.id)
-                                                        // usersApi.unFollowUser(m.id)
-                                                        //     .then(data => {
-                                                        //         if (data.resultCode === 0) {
-                                                        //             props.UnfollowUser(m.id)
-                                                        //         }
-                                                        //         props.toggleFollowingInProgress(false, m.id)
-                                                        //     })
                                                         props.unFollowUserThunk(m.id)
                                                     }}>Unfollow</button>
                                             :
                                             <button disabled={props.followInProgress.some((id: number) => id === m.id)}
                                                     className={s.follow}
                                                     onClick={() => {
-                                                        // props.toggleFollowingInProgress(true, m.id)
-                                                        // usersApi.followUser(m.id)
-                                                        //     .then(data => {
-                                                        //         if (data.resultCode === 0) {
-                                                        //             props.followUser(m.id)
-                                                        //         }
-                                                        //         props.toggleFollowingInProgress(false, m.id)
-                                                        //     })
                                                         props.followUserThunk(m.id)
                                                     }}>Follow</button>
                                     }

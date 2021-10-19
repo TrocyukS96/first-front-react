@@ -28,14 +28,14 @@ const initialState = {
     newMessage: '123'
 } as dialogsPageType
 
-export const addDialogsTextAC = () => ({type: addDialogsMessage} as const)
-export const changeDialogsTextAC = (newDialogsText: string) => ({
+export const addMessage = () => ({type: addDialogsMessage} as const)
+export const changeMessage = (newDialogsText: string) => ({
     type: changeDialogsMessage,
     newDialogsText: newDialogsText
 } as const)
 
-type addDialogsTextAT = ReturnType<typeof addDialogsTextAC>
-type changeDialogsTextAT = ReturnType<typeof changeDialogsTextAC>
+type addDialogsTextAT = ReturnType<typeof addMessage>
+type changeDialogsTextAT = ReturnType<typeof changeMessage>
 
 type ActionsTypes = addDialogsTextAT | changeDialogsTextAT
 

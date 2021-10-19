@@ -2,18 +2,14 @@ import React from 'react';
 import './App.css';
 import Sidebar from './components/sidebar/Sidebar';
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
-import {DialogsContainer} from './components/dialogs/Dialogs';
-import {AppRootType} from "./redux/redux-store";
 import {TrainingContainer} from "./components/training/Training";
-import {UsersContainer} from './components/users/UsersContainer';
-import {ProfileContainer} from "./components/profile/ProfileContainer";
-import { HeaderContainer } from './components/header/HeaderContainer';
+import ProfileContainer from "./components/profile/ProfileContainer";
+import {HeaderContainer} from './components/header/HeaderContainer';
 import {Login} from "./components/login/Login";
-type PropsType = {
-    state: AppRootType
-}
-const App = (props: PropsType) => {
-// const App = () => {
+import UsersContainer from "./components/users/UsersContainer";
+import DialogsContainer from "./components/dialogs/DialogsContainer";
+
+const App = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -21,10 +17,10 @@ const App = (props: PropsType) => {
                 <Route path={"/Profile/:userId?"}
                        render={() => <ProfileContainer/>}/>
                 <Route path={"/Dialogs"}
-                       // render={() => <Dialogs dialogsPageState={props.state.dialogsPage}/>}/>
-                       render={() => <DialogsContainer />}/>
+                    // render={() => <Dialogs dialogsPageState={props.state.dialogsPage}/>}/>
+                       render={() => <DialogsContainer/>}/>
                 <Route path={"/Training"}
-                       render={() => <TrainingContainer />}/>
+                       render={() => <TrainingContainer/>}/>
                 <Route path={"/Users"}
                        render={() => <UsersContainer/>}/>
                 <Route path={"/Login"}

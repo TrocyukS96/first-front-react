@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../components/api/api";
+
 type AuthType = {
     id: any,
     email: any,
@@ -30,4 +33,18 @@ export const authReducer = (state: AuthType = initialState, action: ActionsType)
 }
 export const setAuthUsersData = (id: any, email: any, login: any) => {
     return ({type: "SET_AUTH_USERS_DATA", data: {id, email, login}} as const)
-}                                                ///возвращаемое значение мы типизируем после круглых кавычек в функциях
+
+}
+
+
+export const getAuthData = () => (dispatch:Dispatch) => {
+    authAPI.me()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let {id, email, login} = data
+                dispatch(setAuthUsersData(id, email, login))
+            }
+        })
+}
+
+///возвращаемое значение мы типизируем после круглых кавычек в функциях

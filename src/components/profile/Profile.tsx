@@ -34,6 +34,7 @@ type ProfilePropsType = {
     addTask: () => void
     changePostText: (newText: string) => void
     setUsersProfile: (profile: any) => void
+    isAuth:boolean
 }
 
 function Profile(props: ProfilePropsType) {

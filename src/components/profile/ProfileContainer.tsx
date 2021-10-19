@@ -1,9 +1,11 @@
-import React from 'react';
 import {connect} from 'react-redux';
-import {addTask, changePostText, getProfile, setUsersProfile} from "../../redux/ProfileReducer";
+import {addTask, changePostText, setUsersProfile} from "../../redux/ProfileReducer";
 import {AppRootType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import ProfileAPI from './ProfileAPI';
+import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
+import {compose} from "redux";
+import {ComponentType} from "react";
 
 export type PostType = {
     id: number
@@ -12,32 +14,32 @@ export type PostType = {
     likeCount: number
 }
 
-type mstpType = {
+type MapStateToPropsType = {
     newPostValue: string
     posts: PostType[]
     profile: any
-
 }
-type mdtpType = {
+
+type MapDispatchToPropsType = {
     addTask: () => void
     changePostText: (newText: string) => void
     setUsersProfile: (profile: any) => void
-    getProfile: (userId: any) => void
+
 }
-const mapStateToProps = (state: AppRootType): mstpType => {
+const mapStateToProps = (state: AppRootType): MapStateToPropsType => {
     return {
         newPostValue: state.profilePage.newPost,
         posts: state.profilePage.posts,
         profile: state.profilePage.profile
     }
 }
-
-const ProfileUrlDataContainer = withRouter(ProfileAPI) //
-
-export const ProfileContainer = connect<mstpType, mdtpType, {}, AppRootType>(mapStateToProps, {
-    addTask,
-    changePostText,
-    setUsersProfile,
-    getProfile
-})(ProfileUrlDataContainer);
+export default compose<ComponentType>(
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootType>(mapStateToProps, {
+        addTask,
+        changePostText,
+        setUsersProfile,
+    }),
+    withRouter,
+    WithAuthRedirect
+)(ProfileAPI)
 
