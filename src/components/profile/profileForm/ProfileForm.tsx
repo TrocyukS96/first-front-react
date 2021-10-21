@@ -6,7 +6,6 @@ export type ProfileFormPropsType = {
     newPostValue:string
     sendPost: () => void
     changePostText:(newPostText:string)=>void
-
 }
 
 

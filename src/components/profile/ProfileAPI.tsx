@@ -1,16 +1,17 @@
 import React from "react";
-import { profileAPI } from "../api/api";
 import Profile from "./Profile";
 
 class ProfileAPI extends React.Component<any, any> {
     componentDidMount() {
+        debugger
         let userId = this.props.match.params.userId
+        if(!userId){
+            userId = this.props.userId
+        }
         console.log(userId)
-        profileAPI.setUsers(userId)
-            .then(data => {
-                this.props.setUsersProfile(data)
-            })
-        // this.props.getProfile(userId)
+        this.props.getUsers(userId)
+        this.props.getStatus(userId)
+        console.log(userId)
     }
 
     render() {
@@ -23,6 +24,8 @@ class ProfileAPI extends React.Component<any, any> {
                 changePostText={this.props.changePostText}
                 setUsersProfile={this.props.setUsersProfile}
                 isAuth={this.props.isAuth}
+                status={this.props.status}
+                updateStatus={this.props.updateStatus}
             />
         )
     }

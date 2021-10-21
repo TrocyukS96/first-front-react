@@ -35,12 +35,20 @@ type ProfilePropsType = {
     changePostText: (newText: string) => void
     setUsersProfile: (profile: any) => void
     isAuth:boolean
+    status:string
+    updateStatus:(status:string)=>void
 }
 
 function Profile(props: ProfilePropsType) {
     return (
         <main className={s.profile}>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo
+                profile={props.profile}
+                status={props.status}
+                updateStatus={props.updateStatus}
+
+
+            />
             <ProfileForm
                 newPostValue={props.newPostValue}
                 sendPost={props.addTask}

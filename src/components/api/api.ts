@@ -22,8 +22,15 @@ export const usersApi = {
 }
 export const profileAPI = {
     setUsers(userId:any){
-        return instance.get(`profile/` + userId).then(response => response.data)
+        return instance.get(`profile/` + userId)
+    },
+    getStatus(userId:any){
+        return instance.get(`profile/status/` + userId)
+    },
+    updateStatus(status:string){ //u dont need to write userID, because the server have already known the path of this request
+        return instance.put(`profile/status`, {status})
     }
+
 }
 
 export const authAPI = {
