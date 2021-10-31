@@ -7,7 +7,7 @@ type PropsType ={
     messages: any[],
     newPost: string,
     isAuth:boolean,
-    addMessage: () => void,
+    addMessage: (newMessage:string) => void,
     changeMessage: (newMessage: string) => void
 }
 
@@ -18,9 +18,9 @@ export const Dialogs = (props: PropsType) => {
                 <DialogsItem messages={props.messages}/>
             </ul>
             <InputDialogBlock
-                newPost={props.newPost}
+/*                newPost={props.newPost}*/
                 addMessage={props.addMessage}
-                changeMessage={props.changeMessage}
+                // changeMessage={props.changeMessage}
             />
         </div>
     )

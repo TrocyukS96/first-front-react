@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {addTask, changePostText, getStatus, getUsers, updateStatus} from "../../redux/ProfileReducer";
+import {addPostText, getStatus, getUsers, updateStatus} from "../../redux/ProfileReducer";
 import {AppRootType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import ProfileAPI from './ProfileAPI';
@@ -15,7 +15,6 @@ export type PostType = {
 }
 
 type MapStateToPropsType = {
-    newPostValue: string
     posts: PostType[]
     profile: any
     status:string
@@ -23,8 +22,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    addTask: () => void
-    changePostText: (newText: string) => void
+    addPostText: (newPostText:string) => void
     getUsers: (userId:number) => void
     getStatus: (userId:number) => void
     updateStatus: (status:string) => void
@@ -32,7 +30,6 @@ type MapDispatchToPropsType = {
 }
 const mapStateToProps = (state: AppRootType): MapStateToPropsType => {
     return {
-        newPostValue: state.profilePage.newPost,
         posts: state.profilePage.posts,
         profile: state.profilePage.profile,
         status:state.profilePage.status,
@@ -43,8 +40,7 @@ export default compose<ComponentType>(
     withRouter,
     WithAuthRedirect,
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootType>(mapStateToProps, {
-        addTask,
-        changePostText,
+        addPostText,
         getUsers,
         getStatus,updateStatus
     })

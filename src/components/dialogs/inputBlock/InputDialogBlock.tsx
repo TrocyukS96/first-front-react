@@ -1,43 +1,43 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './InputBlock.module.css';
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Input, TextArea} from "../../formControls/TextArea";
+import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 
 type PropsType = {
-    newPost: string
-    changeMessage: (newMessage: string) => void
-    addMessage: () => void
+    // newPost: string
+    // changeMessage: (newMessage: string) => void
+    addMessage: (newMessage: string) => void
 }
 
 export const InputDialogBlock = (props: PropsType) => {
-    const onChangeMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const newMessageValue = e.currentTarget.value
-
-        if (newMessageValue) {
-            props.changeMessage(newMessageValue)
-
-        }
+    const addNewMessage = (dialogsData: DialogFormType) => {
+        props.addMessage(dialogsData.AddMessageField)
     }
-    // const onCLickAddMessageHandler = () => {
-    //     debugger
-    //     props.addMessage()
-    //     props.changeMessage('')
-    //     /*props.changeMessage('')*/
-    //     // console.log(props.addMessage())
-    //     // console.log(' onCLickAddMessageHandler is working')
-    // }
-
     return (
         <div className={s.inputFormBlock}>
-            <input type="text" onChange={onChangeMessageHandler} value={props.newPost}/>
-            <button onClick={() => {
-                props.addMessage()
-                props.changeMessage('')
-            }
-            }>Add message
-            </button>
+            <DialogsReduxForm onSubmit={addNewMessage}/>
         </div>
     )
 }
 
+type DialogFormType = {
+    AddMessageField: string,
+}
+const maxLength10 = maxLengthCreator(10)
+
+const DialogForm: React.FC<InjectedFormProps<DialogFormType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field type="text" component={Input} name="AddMessageField" placeholder={'add message'} validate={[requiredField,maxLength10 ]}/>
+            <button>Add message</button>
+        </form>
+    )
+}
+
+const DialogsReduxForm = reduxForm<DialogFormType>({
+    form: 'DialogsForm'
+})(DialogForm)
 
 // const mapStateToProps = (state: AppRootType) => {
 //     return {

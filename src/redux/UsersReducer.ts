@@ -84,7 +84,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
             return {...state}
         }
         case 'FOLLOWING_IN_PROGRESS':{
-            debugger
+
             return{
                 ...state ,
                 followInProgress:action.isFetching
@@ -187,7 +187,7 @@ export const followUserThunk =(userId:any) =>{
     }
 }
 export const unFollowUserThunk =(userId:any) =>{
-    debugger
+
     return (dispatch:Dispatch)=>{
         dispatch(toggleFollowingInProgress(true, userId))
         usersApi.unFollowUser(userId)

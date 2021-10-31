@@ -5,13 +5,15 @@ import trainingReducer from "./TrainingReducer";
 import {usersReducer} from "./UsersReducer";
 import {authReducer} from "./AuthReducer";
 import thunk from 'redux-thunk'
+import { reducer as formReducer } from 'redux-form'
 
 let reducers = combineReducers({    //special function to combine reducers
     profilePage:profileReducer,          // create an obj, with property profileReducer and value profileReducer
     dialogsPage:dialogsReducer,
     trainingPage:trainingReducer,
     usersPage:usersReducer,
-    auth:authReducer
+    auth:authReducer,
+    form: formReducer
     ///воспринимать данный обьект больше как state c ветками, profile, dialogs, training
 });
 
@@ -20,3 +22,4 @@ let store: Store = createStore(reducers, applyMiddleware(thunk));
 
 
 export default store;
+

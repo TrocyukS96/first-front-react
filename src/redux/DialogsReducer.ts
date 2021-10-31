@@ -1,12 +1,8 @@
-import {
-    addDialogsMessage,
-    changeDialogsMessage,
-    dialogsPageType,
-    MessageType
-} from "./state";
+import {addDialogsMessage, dialogsPageType, MessageType} from "./state";
 import smilik from './../assets/images/dialogs/smilik.jpg';
 import kazak from "../assets/images/dialogs/kazak.jpg";
 import gentlemen from "../assets/images/dialogs/jentlemen.jpg";
+import {v1} from "uuid";
 
 
 const initialState = {
@@ -25,36 +21,27 @@ const initialState = {
         }
 
     ],
-    newMessage: '123'
 } as dialogsPageType
 
-export const addMessage = () => ({type: addDialogsMessage} as const)
-export const changeMessage = (newDialogsText: string) => ({
-    type: changeDialogsMessage,
-    newDialogsText: newDialogsText
-} as const)
 
 type addDialogsTextAT = ReturnType<typeof addMessage>
-type changeDialogsTextAT = ReturnType<typeof changeMessage>
 
-type ActionsTypes = addDialogsTextAT | changeDialogsTextAT
+type ActionsTypes = addDialogsTextAT
 
 export const dialogsReducer = (state: dialogsPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
 
         case addDialogsMessage: {
             const newMessage: MessageType = {
-                id: new Date().getTime(),
+                id: v1,
                 name: state.messages[1].name,
-                text: state.newMessage,
+                text: action.newMessage,
                 img: smilik
             }
             return {...state, messages: [...state.messages, newMessage]}
-        }
-        case changeDialogsMessage: {
-            return {...state, newMessage: action.newDialogsText}
         }
         default:
             return state
     }
 }
+export const addMessage = (newMessage: string) => ({type: addDialogsMessage, newMessage} as const)

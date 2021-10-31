@@ -20,8 +20,7 @@ class ProfileAPI extends React.Component<any, any> {
                 newPostValue={this.props.newPostValue}
                 profile={this.props.profile}
                 posts={this.props.posts}
-                addTask={this.props.newPostValue}
-                changePostText={this.props.changePostText}
+                addPostText={this.props.addPostText}
                 setUsersProfile={this.props.setUsersProfile}
                 isAuth={this.props.isAuth}
                 status={this.props.status}

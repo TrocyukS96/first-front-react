@@ -1,8 +1,8 @@
 import {AppRootType} from "../../redux/redux-store";
-import {addMessage, changeMessage} from "../../redux/DialogsReducer";
+import {addMessage} from "../../redux/DialogsReducer";
 import {connect} from "react-redux";
 import {Dialogs} from "./Dialogs";
-import  {ComponentType} from "react";
+import {ComponentType} from "react";
 import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
@@ -11,8 +11,8 @@ type MapStateToPropsType = {
     newPost: string,
 }
 type MapDispatchToPropsType = {
-    addMessage: () => void,
-    changeMessage: (newMessage: string) => void
+    addMessage: (newMessage:string) => void,
+    // changeMessage: (newMessage: string) => void
 }
 
 const mapStateToProps = (state: AppRootType): MapStateToPropsType => {
@@ -24,7 +24,7 @@ const mapStateToProps = (state: AppRootType): MapStateToPropsType => {
     export default compose<ComponentType>(
         connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootType>(mapStateToProps, {
             addMessage,
-            changeMessage
+            // changeMessage
         }),
         WithAuthRedirect
     )(Dialogs)

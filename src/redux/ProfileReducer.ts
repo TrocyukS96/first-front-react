@@ -22,7 +22,6 @@ const initialState = {
         }
 
     ],
-    newPost: '123',
     profile: {
         aboutMe: 'Im Stanislav',
         contacts: {
@@ -47,31 +46,27 @@ const initialState = {
 
     },
     status: 'hello, guys'
-
 }
 type initialStateType = typeof initialState
-type addTaskAT = ReturnType<typeof addTask>
-type ChangePostTextAT = ReturnType<typeof changePostText>
+type addPostTextAT = ReturnType<typeof addPostText>
 type getUsersProfileAT = ReturnType<typeof getUsersProfile>
 type setStatusAT = ReturnType<typeof setStatus>
 
-type ActionsType = addTaskAT | ChangePostTextAT | getUsersProfileAT | setStatusAT
+type ActionsType = addPostTextAT | getUsersProfileAT | setStatusAT
 
 
 export const profileReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
-        case "ADD-TASK": {
+        case "ADD-POST-TEXT": {
+            debugger
             const newPost: StatePostType = {
                 id: new Date().getTime(),
-                text: state.newPost,
+                text: action.newPostText,
                 img: PostLogo,
                 likeCount: 0
             }
             return {...state, posts: [...state.posts, newPost]}
 
-        }
-        case "CHANGE-POST-TEXT": {
-            return {...state, newPost: action.newText}
         }
         case "SET-STATUS": {
             return {...state, status: action.status}
@@ -83,17 +78,12 @@ export const profileReducer = (state: initialStateType = initialState, action: A
             return state
     }
 }
-export const addTask = () => {
+export const addPostText = (newPostText:string) => {
 
-    return ({type: 'ADD-TASK'} as const)
+    return ({type: 'ADD-POST-TEXT', newPostText} as const)
 
 }                                                ///возвращаемое значение мы типизируем после круглых кавычек в функциях
-export const changePostText = (newText: string) => {
-    return {
-        type: "CHANGE-POST-TEXT",
-        newText
-    } as const
-}
+
 export const getUsersProfile = (profile: any) => {
     return {
         type: "SET-USERS-PROFILE",

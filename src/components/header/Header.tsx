@@ -4,18 +4,26 @@ import s from './Header.module.css';
 
 import Logo from './../../assets/images/logo.webp';
 
+
 type HeaderPropsType = {
     isAuth: boolean
-    login: any
+    login: any,
+    logOut:()=>void
 }
 
 function Header(props:HeaderPropsType) {
+
+    const logOutHandler = () =>{
+        props.logOut()
+    }
     return (
 
         <header className={s.header}>
             <img className={s.logoImg} src={Logo} alt={'1234'}/>
             <div className={s.headerLogin}>
-                {props.isAuth ? props.login : <NavLink to={'/login'}>login</NavLink>}
+                {props.isAuth
+                    ? <div>{props.login}  <button onClick={logOutHandler}>log Out</button></div>
+                    : <NavLink to={'/login'}>login</NavLink>}
             </div>
         </header>
 

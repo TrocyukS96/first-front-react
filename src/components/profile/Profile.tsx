@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Profile.module.css';
 import Posts from './posts/Posts';
-import ProfileForm from "./profileForm/ProfileForm";
+import ProfileData from "./profileData/ProfileData";
 import {PostType} from "./ProfileContainer";
 import ProfileInfo from "./profileInfo/ProfileInfo";
 
@@ -31,8 +31,7 @@ type ProfilePropsType = {
     newPostValue: string
     profile: ProfileType
     posts: PostType[]
-    addTask: () => void
-    changePostText: (newText: string) => void
+    addPostText: (newPostText: string) => void
     setUsersProfile: (profile: any) => void
     isAuth:boolean
     status:string
@@ -49,10 +48,8 @@ function Profile(props: ProfilePropsType) {
 
 
             />
-            <ProfileForm
-                newPostValue={props.newPostValue}
-                sendPost={props.addTask}
-                changePostText={props.changePostText}
+            <ProfileData
+                addPostText={props.addPostText}
             />
 
             <Posts posts={props.posts}/>

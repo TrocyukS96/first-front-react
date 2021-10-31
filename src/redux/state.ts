@@ -47,7 +47,7 @@ export type dialogsPageType = {
     newMessage: string
 }
 export type MessageType = {
-    id: number
+    id: any
     name: string
     text: string
     img: any
@@ -133,16 +133,16 @@ export let store: StoreType = {
         dialogsPage: {
             messages: [
                 {
-                    id: 1110, name: 'Stas', text: "My first post for today", img: kazak
+                    id: "1110", name: 'Stas', text: "My first post for today", img: kazak
                 },
                 {
-                    id: 1111, name: 'Ivan', text: "Other dialogsMessage", img: gentlemen
+                    id: "1111", name: 'Ivan', text: "Other dialogsMessage", img: gentlemen
                 },
                 {
-                    id: 1112, name: 'Stas', text: "Im learning front-end", img: smilik
+                    id: "1112", name: 'Stas', text: "Im learning front-end", img: smilik
                 },
                 {
-                    id: 1113, name: 'Stas', text: "My first post for today", img: gentlemen
+                    id: "1113", name: 'Stas', text: "My first post for today", img: gentlemen
                 }
 
             ],

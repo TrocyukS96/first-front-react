@@ -5,9 +5,9 @@ import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {TrainingContainer} from "./components/training/Training";
 import ProfileContainer from "./components/profile/ProfileContainer";
 import {HeaderContainer} from './components/header/HeaderContainer';
-import {Login} from "./components/login/Login";
 import UsersContainer from "./components/users/UsersContainer";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
+import Login from "./components/login/LoginForm";
 
 const App = () => {
     return (
