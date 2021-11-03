@@ -2,7 +2,7 @@ import React from 'react';
 import s from "../Profile.module.css";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
-import {TextArea} from "../../formControls/TextArea";
+import {FormControl} from "../../formControls/FormControl";
 
 const maxLength10 = maxLengthCreator(10)
 
@@ -20,7 +20,7 @@ const ProfileForm: React.FC<InjectedFormProps<ProfileFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={s.inputBlock}>
-                <Field component={TextArea} name="addDataProfile" placeholder={'Post message'} validate={[requiredField, maxLength10]}/>
+                <Field component={FormControl} name="addDataProfile" placeholder={'Post message'} validate={[requiredField, maxLength10]}/>
             </div>
             <button className={s.formBtn}>Send</button>
         </form>

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './InputBlock.module.css';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input, TextArea} from "../../formControls/TextArea";
+import {Input, FormControl} from "../../formControls/FormControl";
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 
 type PropsType = {

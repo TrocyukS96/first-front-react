@@ -1,8 +1,8 @@
 import React from "react";
-import s from './TextArea.module.css';
+import s from './FormControl.module.css';
 
 
-export const TextArea:React.FC<any> = ({input, meta, ...props})=>{
+export const FormControl:React.FC<any> = ({input, meta, ...props})=>{
     const showError = meta.touched && meta.error
     return(
         <div >

@@ -6,6 +6,7 @@ import {usersReducer} from "./UsersReducer";
 import {authReducer} from "./AuthReducer";
 import thunk from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
+import {appReducer} from "./appReducer";
 
 let reducers = combineReducers({    //special function to combine reducers
     profilePage:profileReducer,          // create an obj, with property profileReducer and value profileReducer
@@ -13,6 +14,7 @@ let reducers = combineReducers({    //special function to combine reducers
     trainingPage:trainingReducer,
     usersPage:usersReducer,
     auth:authReducer,
+    app:appReducer,
     form: formReducer
     ///воспринимать данный обьект больше как state c ветками, profile, dialogs, training
 });
