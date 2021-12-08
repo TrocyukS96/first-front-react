@@ -11,10 +11,8 @@ class ProfileAPI extends React.Component<any, any> {
                 this.props.history.push('/login')
             }
         }
-        console.log(userId)
         this.props.getUsers(userId)
         this.props.getStatus(userId)
-        console.log(userId)
     }
 
     render() {

@@ -16,12 +16,6 @@ function ProfileInfo(props: ProfileInfoPropsType) {
     if(!props.profile){
         return <Preloader/>
     }
-    // let contacts = [...Object.values(props.profile.contacts), ...Object.keys(props.profile.contacts)]
-    // // const contactsMap = contacts.map((m,i)=>{
-    // //     return(
-    // //         <li key={i}>{m}</li>
-    // //     )
-    // // })
     return (
         <div >
             <img className={s.profileImg} src={ ProfileImg } alt="profile-image"/>
@@ -39,9 +33,6 @@ function ProfileInfo(props: ProfileInfoPropsType) {
                     </div>
                     <div className={s.contacts}>
                         <h3>Контакты</h3>
-                        {/*<ul>*/}
-                        {/*    {contactsMap}*/}
-                        {/*</ul>*/}
                         <h3>О себе: <span>{props.profile.aboutMe}</span></h3>
                     </div>
                 </div>

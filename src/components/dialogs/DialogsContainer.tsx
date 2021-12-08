@@ -5,6 +5,7 @@ import {Dialogs} from "./Dialogs";
 import {ComponentType} from "react";
 import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {getMessages, getPost} from "../../selectors/dialogs-selector";
 
 type MapStateToPropsType = {
     messages: any[],
@@ -17,8 +18,8 @@ type MapDispatchToPropsType = {
 
 const mapStateToProps = (state: AppRootType): MapStateToPropsType => {
     return {
-        messages: state.dialogsPage.messages,
-        newPost: state.dialogsPage.newMessage,
+        messages: getMessages(state),
+        newPost: getPost(state),
     }
 }
     export default compose<ComponentType>(

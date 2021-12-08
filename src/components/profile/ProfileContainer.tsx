@@ -1,11 +1,12 @@
 import {connect} from 'react-redux';
-import {addPostText, getStatus, getUsers, updateStatus} from "../../redux/ProfileReducer";
+import {addPostText, getUsers, updateStatus, getStatus} from "../../redux/ProfileReducer";
 import {AppRootType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import ProfileAPI from './ProfileAPI';
 import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import {ComponentType} from "react";
+import {getPosts, getProfile, getUserId, getProfileStatus} from "../../selectors/profile-selector";
 
 export type PostType = {
     id: number
@@ -30,12 +31,13 @@ type MapDispatchToPropsType = {
 }
 const mapStateToProps = (state: AppRootType): MapStateToPropsType => {
     return {
-        posts: state.profilePage.posts,
-        profile: state.profilePage.profile,
-        status:state.profilePage.status,
-        userId: state.profilePage.profile.userId
+        posts: getPosts(state),
+        profile: getProfile(state),
+        status:getProfileStatus(state),
+        userId: getUserId(state)
     }
 }
+
 export default compose<ComponentType>(
     withRouter,
     WithAuthRedirect,

@@ -18,9 +18,7 @@ export const Dialogs = (props: PropsType) => {
                 <DialogsItem messages={props.messages}/>
             </ul>
             <InputDialogBlock
-/*                newPost={props.newPost}*/
                 addMessage={props.addMessage}
-                // changeMessage={props.changeMessage}
             />
         </div>
     )

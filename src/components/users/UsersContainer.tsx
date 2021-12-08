@@ -15,8 +15,15 @@ import {
     UserType
 } from "../../redux/UsersReducer";
 import UsersAPI from "./UsersAPI";
-import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFetch,
+    getFollowInProgress,
+    getPageSize,
+    getTotalCount,
+    getUsers
+} from "../../selectors/users-selector";
 
 
 type MapStateToPropsType = {
@@ -44,12 +51,12 @@ type MapDispatchToProps = {
 }
 const mapStateToProps = (state: any): MapStateToPropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalCount: state.usersPage.totalCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followInProgress: state.usersPage.followInProgress,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalCount: getTotalCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getFetch(state),
+        followInProgress: getFollowInProgress(state),
     }
 }
 export default compose<ComponentType>(
