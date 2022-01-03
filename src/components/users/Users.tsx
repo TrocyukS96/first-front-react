@@ -3,7 +3,7 @@ import s from "./Users.module.css";
 import undefinedImg from "../../assets/images/users/user-undefined.jpg";
 import {NavLink} from 'react-router-dom';
 import {UserType} from "../../redux/UsersReducer";
-import {usersApi} from "../api/api";
+import {Paginator} from "./paginator/Paginator";
 
 type UsersPropsType = {
     totalCount: number
@@ -20,22 +20,16 @@ type UsersPropsType = {
     unFollowUserThunk: (userId: any) => void
 }
 export const Users = (props: UsersPropsType) => {
-    let pageCount = Math.ceil(props.totalCount / props.pageSize)
-    let pages = [];
-    for (let i = 1; i <= pageCount; i++) {
-        pages.push(i)
-    }
-    const onSetCurrentPageHandler = (currentPage: number) => {
-        props.setCurrentPage(currentPage)
-        usersApi.getUsers(currentPage, props.pageSize)
-            .then(data => props.setUsers(data.items))
-    }
     return (
         <div className={s.users}>
-            <div>
-                {pages.map(m => <span className={props.currentPage === m ? s.activePage : ''}
-                                      onClick={() => onSetCurrentPageHandler(m)}>{m}</span>)}
-            </div>
+            <Paginator
+                totalCount={props.totalCount}
+                pageSize={props.pageSize}
+                setCurrentPage={props.setCurrentPage}
+                setUsers={props.setUsers}
+                currentPage={props.currentPage}
+                portionsSize={10}
+                />
             <ul className={s.usersList}>
                 {props.users.map((m: any, i: number) => {
                     return (
