@@ -58,7 +58,6 @@ type ActionsType = addPostTextAT | getUsersProfileAT | setStatusAT
 export const profileReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case "ADD-POST-TEXT": {
-            debugger
             const newPost: StatePostType = {
                 id: new Date().getTime(),
                 text: action.newPostText,

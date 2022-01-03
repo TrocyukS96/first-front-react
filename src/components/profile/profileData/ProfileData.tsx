@@ -29,11 +29,8 @@ const ProfileForm: React.FC<InjectedFormProps<ProfileFormType>> = (props) => {
 
 
 function ProfileData(props: ProfileFormPropsType) {
-    debugger
-
     const addPostText = (newPostText:ProfileFormType) => {
         props.addPostText(newPostText.addDataProfile)
-
     }
     return (
         <div className={s.profileForm}>
