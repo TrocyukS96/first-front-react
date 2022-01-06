@@ -36,6 +36,8 @@ type ProfilePropsType = {
     isAuth:boolean
     status:string
     updateStatus:(status:string)=>void
+    isOwner:boolean
+    savePhoto:(value:any)=>void
 }
 
 function Profile(props: ProfilePropsType) {
@@ -45,6 +47,8 @@ function Profile(props: ProfilePropsType) {
                 profile={props.profile}
                 status={props.status}
                 updateStatus={props.updateStatus}
+                isOwner={props.isOwner}
+                savePhoto={props.savePhoto}
 
 
             />

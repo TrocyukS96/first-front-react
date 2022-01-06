@@ -29,7 +29,8 @@ class App extends React.Component<any, any> {
 
                         <HeaderContainer/>
                         <Route path={"/Profile/:userId?"}
-                               render={WithSuspense(ProfileContainer)}/>
+                               render={WithSuspense(
+                                   ProfileContainer)}/>
                         <Route path={"/Dialogs"}
                                render={WithSuspense(DialogsContainer)}/>
                         <Route path={"/Training"}
@@ -41,7 +42,6 @@ class App extends React.Component<any, any> {
                         <Redirect from='/' to='/Profile'/>
                         <Sidebar/>
                     </div>
-
             </BrowserRouter>
         )
     }

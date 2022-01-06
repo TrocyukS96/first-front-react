@@ -39,20 +39,15 @@ const initialState = {
         fullName: 'Stanislav',
         userId: 1,
         photos: {
-            small: null,
-            large: null
+            small: null as null | string,
+            large: null as null | string
         },
 
 
     },
     status: 'hello, guys'
 }
-type initialStateType = typeof initialState
-type addPostTextAT = ReturnType<typeof addPostText>
-type getUsersProfileAT = ReturnType<typeof getUsersProfile>
-type setStatusAT = ReturnType<typeof setStatus>
 
-type ActionsType = addPostTextAT | getUsersProfileAT | setStatusAT
 
 
 export const profileReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
@@ -72,6 +67,9 @@ export const profileReducer = (state: initialStateType = initialState, action: A
         }
         case "SET-USERS-PROFILE": {
             return {...state, profile: action.profile}
+        }
+        case "SAVE-PHOTO-SUCESS":{
+            return {...state, profile: {...state.profile, photos: {...action.photos}}}
         }
         default:
             return state
@@ -96,6 +94,14 @@ export const setStatus = (status: any) => {
         status
     } as const
 }
+export const savePhotoSuccess = (photos: {large:string, small:string}) => {
+    return {
+        type: "SAVE-PHOTO-SUCESS",
+        photos
+    } as const
+}
+
+//thunks
 export const getUsers = (userId:number) => (dispatch:Dispatch)=>{
     profileAPI.setUsers(userId).then(response =>{
 
@@ -109,11 +115,39 @@ export const getStatus = (userId:number) => (dispatch:Dispatch)=>{
         dispatch(setStatus(response.statusText))
     })
 }
-export const updateStatus = (status:string) => (dispatch:Dispatch)=>{
-    profileAPI.updateStatus(status).then(response =>{
-        if(response.data.resultCode===0){
+export const updateStatus = (status:string) => async (dispatch:Dispatch)=>{
+    try {
+
+        let res =await profileAPI.updateStatus(status)
+        if(res.data.resultCode===0){
             dispatch(setStatus(status))
         }
-    })
-}
+    }catch (e) {
+        console.log(e)
+    }
 
+
+}
+export const savePhoto = (photo:any) => async (dispatch:Dispatch)=>{
+    debugger
+    try {
+
+        let res =await profileAPI.savePhoto(photo)
+        dispatch(savePhotoSuccess(res.data.data.photos))
+    }catch (e) {
+        console.log(e)
+    }
+
+
+}
+//types
+type initialStateType = typeof initialState
+type addPostTextAT = ReturnType<typeof addPostText>
+type getUsersProfileAT = ReturnType<typeof getUsersProfile>
+type setStatusAT = ReturnType<typeof setStatus>
+
+type ActionsType =
+    addPostTextAT
+    | getUsersProfileAT
+    | setStatusAT
+    | ReturnType<typeof savePhotoSuccess>

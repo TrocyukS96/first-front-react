@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 export const instance = axios.create({
     withCredentials:true,
     baseURL:'https://social-network.samuraijs.com/api/1.0/',
     headers:{
-        "API-KEY":"c0bf711e-1849-4428-895f-9a17a0fee29d"
+        "API-KEY":"3d91ee0a-a2e5-4c47-9eef-21fe45b3ba2b"
     }
 })
 export const usersApi = {
@@ -27,8 +27,20 @@ export const profileAPI = {
     getStatus(userId:any){
         return instance.get(`profile/status/` + userId)
     },
-    updateStatus(status:string){ //u dont need to write userID, because the server have already known the path of this request
-        return instance.put(`profile/status`, {status})
+    updateStatus(status:string){
+        //u dont need to write userID, because the server have already known the path of this request
+
+        return instance.put<{ status:string}, AxiosResponse<UpdateStatusResponseType>>(`profile/status`, {status:status})
+    },
+    savePhoto(photoFile:any){
+        debugger
+        let formData = new FormData()
+        formData.append('image', photoFile)
+        return instance.put<{ formData:any}, AxiosResponse<UpdatePhotoResponseType>>(`profile/photo`, formData, {
+            headers:{
+                'Content-Type':'multipart/form-data'
+            }
+        })
     }
 
 }
@@ -43,4 +55,22 @@ export const authAPI = {
     logOut(){
         return instance.delete(`auth/login`)
     }
+}
+
+type UpdateStatusResponseType = {
+    resultCode:number,
+    messages:string[],
+    data:{}
+}
+
+type UpdatePhotoResponseType = {
+    data:{
+        photos:{
+            small:string  ,
+            large:string
+        }
+
+    }
+    resultCode:number,
+    messages:string[]
 }

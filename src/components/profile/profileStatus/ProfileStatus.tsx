@@ -7,7 +7,6 @@ type ProfileStatusType = {
 }
 
 export class ProfileStatus extends React.Component<ProfileStatusType> {
-
     state = {
         editMode: false,
         status:this.props.status
@@ -26,6 +25,7 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
     }
 
     deActivateMode() {
+
         this.setState({
                 editMode: false
             }
@@ -52,8 +52,6 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
                              value={this.state.status}/>
                     : <span onDoubleClick={this.activateMode.bind(this)}>{this.props.status || 'default status'}</span>
                 }
-
-
             </>
         )
     }
