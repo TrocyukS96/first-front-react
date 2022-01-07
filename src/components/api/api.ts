@@ -21,6 +21,7 @@ export const usersApi = {
 
 }
 export const profileAPI = {
+
     setUsers(userId:any){
         return instance.get(`profile/` + userId)
     },
@@ -33,7 +34,6 @@ export const profileAPI = {
         return instance.put<{ status:string}, AxiosResponse<UpdateStatusResponseType>>(`profile/status`, {status:status})
     },
     savePhoto(photoFile:any){
-        debugger
         let formData = new FormData()
         formData.append('image', photoFile)
         return instance.put<{ formData:any}, AxiosResponse<UpdatePhotoResponseType>>(`profile/photo`, formData, {
@@ -41,6 +41,8 @@ export const profileAPI = {
                 'Content-Type':'multipart/form-data'
             }
         })
+    },updateProfile(profile:any){
+        return instance.put('/profile',profile)
     }
 
 }
@@ -55,6 +57,26 @@ export const authAPI = {
     logOut(){
         return instance.delete(`auth/login`)
     }
+}
+
+export type NewProfileDataType ={
+    AboutMe: string
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts:ContactsType
+
+}
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
 }
 
 type UpdateStatusResponseType = {

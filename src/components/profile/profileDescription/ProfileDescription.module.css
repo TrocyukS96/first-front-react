@@ -1,0 +1,45 @@
+.contacts{
+}
+
+.contactTitle, .contactValue{
+    margin: 0;
+    padding: 0;
+
+
+    color:#fff;
+}
+.contactTitle{
+    padding-left: 25px;
+    padding-right: 5px;
+
+    font-size: 24px;
+    text-transform: uppercase;
+
+    position: relative;
+
+    color:darkgrey;
+}
+.contactTitle::before{
+    content: '';
+
+    width: 20px;
+    height: 20px;
+
+    background-color: #c0a668;
+    border-radius: 50%;
+
+    position: absolute;
+    left: -4px;
+    top: 0;
+
+    transform: translateY(40%);
+
+    transition: all .3s ease;
+
+}
+.contactTitle:hover::before{
+    background-color: #be4513;
+}
+.contactValue{
+    padding-left: 5px;
+}

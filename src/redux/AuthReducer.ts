@@ -10,6 +10,7 @@ type AuthType = {
 
 }
 
+
 const initialState = {
     id: null,
     email: null,
@@ -36,12 +37,15 @@ export const setAuthUsersData = (id: any, email: any, login: any, isAuth:boolean
 
 }
 
-
+//thunks
 export const getAuthData = () => (dispatch:Dispatch) => {
+    debugger
     authAPI.me()
+
         .then(data => {
             if (data.resultCode === 0) {
-                let {id, email, login} = data
+                debugger
+                let {email, id,login} = data.data
                 dispatch(setAuthUsersData(id, email, login, true))
             }
         })

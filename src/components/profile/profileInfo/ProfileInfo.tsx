@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './ProfileInfo.module.css';
 import ProfileImg from './../../../assets/images/main/main-img.jpg';
 import {ProfileType} from '../Profile';
 import {Preloader} from "../../preloader/Preloader";
-import {ProfileStatus} from "../profileStatus/ProfileStatus";
+import {ProfileDescription} from '../profileDescription/ProfileDescription';
 
 type ProfileInfoPropsType = {
     profile: ProfileType
@@ -11,6 +11,7 @@ type ProfileInfoPropsType = {
     updateStatus:(status:string)=>void
     isOwner:boolean
     savePhoto:(value:any)=>void
+    updateProfile:(values:any)=>void
 
 }
 
@@ -23,7 +24,7 @@ function ProfileInfo(props: ProfileInfoPropsType) {
         props.savePhoto(e.target.files[0])
     }
     }
-    console.log('props.profile', props.profile)
+    console.log(props.status, 'status')
     return (
         <div >
             <img className={s.profileImg} src={ ProfileImg } alt="profile-image"/>
@@ -36,18 +37,13 @@ function ProfileInfo(props: ProfileInfoPropsType) {
                         type={'file'}
                         onChange={onMainPhotoSelect}
                     />}
-                    <h3 className={s.personTitle}>{props.profile.fullName}</h3>
-                    <div className={s.status}>
-                        <ProfileStatus
-                            status={props.status}
-                            updateStatus={props.updateStatus}
-
-                        />
-                    </div>
-                    <div className={s.contacts}>
-                        <h3>Контакты</h3>
-                        <h3>О себе: <span>{props.profile.aboutMe}</span></h3>
-                    </div>
+                    <ProfileDescription
+                        updateProfile={props.updateProfile}
+                        profile={props.profile}
+                        isOwner={props.isOwner}
+                        status={props.status}
+                        updateStatus={props.updateStatus}
+                    />
                 </div>
             </div>
         </div>

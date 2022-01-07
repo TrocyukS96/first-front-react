@@ -1,60 +1,41 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
 type ProfileStatusType = {
     status: string
-    updateStatus:(status:string)=>void
+    updateStatus: (status: string) => void
 
 }
 
-export class ProfileStatus extends React.Component<ProfileStatusType> {
-    state = {
-        editMode: false,
-        status:this.props.status
-    }
-    onChangeInputHandler(e:ChangeEvent<HTMLInputElement>){
-        this.setState({
-            status:e.currentTarget.value
-        })
-    }
+export const ProfileStatus = (props: ProfileStatusType) => {
+    const {status, updateStatus} = props
+    //hooks
+    const [editMode, setEditMode] = useState(false)
+    const [statusValue, setStatusValue] = useState(status)
 
-    activateMode() {
-        this.setState({
-                editMode: true
+    //handlers
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setStatusValue(e.currentTarget.value)
+
+
+    }
+    const deActivateModeHandler = () => {
+        setEditMode(false)
+        updateStatus(statusValue)
+    }
+    const activateModeHandler = () => {
+        setEditMode(true)
+    }
+    return (
+        <>
+            {editMode
+                ? <input onChange={onChangeInputHandler} onBlur={deActivateModeHandler} autoFocus type="text"
+                         value={statusValue}/>
+                : <div style={{marginBottom: "20px"}}>
+                    <span style={{color: "#fff"}} onDoubleClick={activateModeHandler}>{status}</span>
+                </div>
             }
-        )
-    }
-
-    deActivateMode() {
-
-        this.setState({
-                editMode: false
-            }
-        )
-        this.props.updateStatus(this.state.status)
-    }
-    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>, snapshot?: any) {
-        console.log('componentDidUpdate')
-
-        if(prevProps.status !== this.props.status){
-            this.setState({status:this.props.status})
-
-        }
-    }
-    //сначала происходит рендер компоненты, потом происходит уведомление компоненты что она отрендерилась
-
-    render() {
-        console.log('render')
-        console.log(this.props.status + 'status')
-        return (
-            <>
-                {this.state.editMode
-                    ? <input onChange={this.onChangeInputHandler.bind(this)} onBlur={this.deActivateMode.bind(this)} autoFocus={true} type="text"
-                             value={this.state.status}/>
-                    : <span onDoubleClick={this.activateMode.bind(this)}>{this.props.status || 'default status'}</span>
-                }
-            </>
-        )
-    }
+        </>
+    )
 
 }
 

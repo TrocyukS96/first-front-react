@@ -9,13 +9,13 @@ export type ProfileType = {
     "aboutMe": string,
     "contacts": {
         "facebook": string,
-        "website": any,
+        "website": string,
         "vk": string,
         "twitter": string,
         "instagram": string,
-        "youtube": any,
+        "youtube": string,
         "github": string,
-        "mainLink": any
+        "mainLink": string
     },
     "lookingForAJob": boolean,
     "lookingForAJobDescription": string,
@@ -38,9 +38,11 @@ type ProfilePropsType = {
     updateStatus:(status:string)=>void
     isOwner:boolean
     savePhoto:(value:any)=>void
+    updateProfile:(values:any)=>void
 }
 
 function Profile(props: ProfilePropsType) {
+    console.log(props.status, 'status')
     return (
         <main className={s.profile}>
             <ProfileInfo
@@ -49,7 +51,7 @@ function Profile(props: ProfilePropsType) {
                 updateStatus={props.updateStatus}
                 isOwner={props.isOwner}
                 savePhoto={props.savePhoto}
-
+                updateProfile={props.updateProfile}
 
             />
             <ProfileData

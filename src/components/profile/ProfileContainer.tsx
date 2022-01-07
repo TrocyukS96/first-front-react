@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {addPostText, getUsers, updateStatus, getStatus, savePhoto} from "../../redux/ProfileReducer";
+import {addPostText, getUsers, updateStatus, getStatus, savePhoto, updateProfile} from "../../redux/ProfileReducer";
 import {AppRootType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import ProfileAPI from './ProfileAPI';
@@ -28,6 +28,7 @@ type MapDispatchToPropsType = {
     getStatus: (userId:number) => void
     updateStatus: (status:string) => void
     savePhoto:(photo:any)=>{}
+    updateProfile:(values:any)=>void
 
 }
 const mapStateToProps = (state: AppRootType): MapStateToPropsType => {
@@ -45,7 +46,7 @@ export default compose<ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppRootType>(mapStateToProps, {
         addPostText,
         getUsers,
-        getStatus,updateStatus, savePhoto
+        getStatus,updateStatus, savePhoto, updateProfile
     })
 
 )(ProfileAPI)

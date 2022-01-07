@@ -2,6 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 
 class ProfileAPI extends React.Component<any, any> {
+
     refreshProfile(){
         let userId = this.props.match.params.userId
         if(!userId){
@@ -15,14 +16,14 @@ class ProfileAPI extends React.Component<any, any> {
     }
     componentDidMount() {
         console.log('Profile, componentDidMount')
-        debugger
         this.refreshProfile()
+        console.log(this.props.status)
     }
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
-        debugger
         console.log('Profile, componentDidUpdate')
         if(this.props.match.params.userId !=prevProps.match.params.userId){
             this.refreshProfile()
+
         }
     }
 
@@ -39,6 +40,7 @@ class ProfileAPI extends React.Component<any, any> {
                 status={this.props.status}
                 updateStatus={this.props.updateStatus}
                 savePhoto={this.props.savePhoto}
+                updateProfile={this.props.updateProfile}
             />
         )
     }
