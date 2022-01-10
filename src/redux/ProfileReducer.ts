@@ -64,7 +64,6 @@ export const profileReducer = (state: initialStateType = initialState, action: A
 
         }
         case "SET-STATUS": {
-            debugger
             return {...state, status: action.status}
         }
         case "SET-USERS-PROFILE": {
@@ -89,7 +88,7 @@ export const getUsersProfile = (profile: any) => {
     } as const
 }
 export const setStatus = (status: string) => {
-    debugger
+
     return {
         type: "SET-STATUS",
         status
@@ -110,9 +109,7 @@ export const getUsers = (userId: number) => (dispatch: Dispatch) => {
 }
 
 export const getStatus = (userId: number) => (dispatch: Dispatch) => {
-    debugger
     profileAPI.getStatus(userId).then(response => {
-        debugger
         dispatch(setStatus(response.data))
     })
 }
@@ -140,7 +137,7 @@ export const savePhoto = (photo: any) => async (dispatch: Dispatch) => {
 }
 export const updateProfile = (profileData: any): ThunkType => async (dispatch, getState: () => AppRootType) => {
     try {
-        debugger
+
         const userId = getState().auth.id
         const {about, fullName, lookingForAJob, skillsDescription, contacts} = profileData
         console.log(profileData)
