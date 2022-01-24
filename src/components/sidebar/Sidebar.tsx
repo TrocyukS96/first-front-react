@@ -1,6 +1,6 @@
 import React from 'react';
 
-import s from './Sidebar.module.css';
+import s from './Sidebar.module.scss';
 
 import Logo from './../../assets/images/logo.webp';
 import { NavLink } from 'react-router-dom';

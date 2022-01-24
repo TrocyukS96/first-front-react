@@ -1,5 +1,5 @@
 import React from 'react';
-import s from "../Profile.module.css";
+import s from "../Profile.module.scss";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 import {FormControl} from "../../formControls/FormControl";

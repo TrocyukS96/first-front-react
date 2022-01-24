@@ -1,0 +1,43 @@
+
+.profileInfoBlock{
+background-color: rgb(255, 255, 255);
+    display: flex;
+    gap: 10px;
+    .top{
+
+        .topImgWrap{
+            display: inline-block;
+            .topImg{
+                width: 200px;
+                height: 200px;
+
+                border-radius: 30px;
+            }
+            position: relative;
+
+            .topContent{
+
+                position: absolute;
+                left: 50%;
+                top: 50%;
+
+                transform: translate(-50%, -50%);
+
+                opacity: 0;
+                transition: all .4s ease;
+            }
+            &:hover .topContent{
+                opacity: 1;
+            }
+        }
+
+
+
+    }
+    .about{
+        h2{}
+        .status{}
+    }
+}
+
+

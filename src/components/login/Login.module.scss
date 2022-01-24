@@ -1,0 +1,30 @@
+.loginBlock{
+  background-image: url("./../../assets/images/login/png-transparent-network-topology-social-network-twitter-diagram-twitter-computer-network-computer-wallpaper-symmetry.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+
+
+  .inner{
+    margin-top: 7%;
+
+    padding: 5px;
+
+    height: 200px;
+
+    border:2px solid;
+
+    background-color: transparent;
+
+    text-align: center;
+
+
+    h3{
+      text-transform: uppercase;
+
+      margin-bottom: 10px;
+    }
+
+  }
+}

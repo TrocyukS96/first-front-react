@@ -1,5 +1,5 @@
 import React, {ComponentType} from 'react';
-import './App.css';
+import './App.scss';
 import Sidebar from './components/sidebar/Sidebar';
 import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
 import {TrainingContainer} from "./components/training/Training";

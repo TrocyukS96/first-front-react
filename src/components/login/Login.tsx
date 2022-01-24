@@ -4,6 +4,7 @@ import {FormDataType, LoginReduxForm} from "./loginForm/LoginForm";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootType} from "../../redux/redux-store";
 import {login} from "../../redux/AuthReducer";
+import s from './Login.module.scss';
 
 export const Login: React.FC<any> = (props) => {
     //hooks
@@ -17,9 +18,11 @@ export const Login: React.FC<any> = (props) => {
         return <Redirect to={'/profile'}/>
     }
     return (
-        <div>
-            <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+        <div className={s.loginBlock}>
+            <div className={s.inner}>
+                <h3>Login</h3>
+                <LoginReduxForm onSubmit={onSubmit}/>
+            </div>
         </div>
     )
 }
