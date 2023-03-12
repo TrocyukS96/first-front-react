@@ -6,7 +6,7 @@
 
   display: grid;
   grid-template-columns: 15% 85%;
-  grid-template-rows: 12% 88%;
+  grid-template-rows: 6% 94%;
 
   grid-template-areas:
     "header header"
@@ -15,7 +15,7 @@
 
   justify-content: center;
 
-  background-image: url('./assets/images/main/bg.jpg');
+  //background-image: url('./assets/images/main/bg.jpg');
 
   background-repeat: no-repeat;
 

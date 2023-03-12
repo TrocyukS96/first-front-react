@@ -1,4 +1,4 @@
-import s from "../../profileDescription/ProfileDescription.module.css";
+import s from "../../profileDescription/ProfileDescription.module.scss";
 import React from "react";
 
 type ContactPropsType = {

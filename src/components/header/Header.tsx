@@ -2,7 +2,8 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 import s from './Header.module.scss';
 
-import Logo from './../../assets/images/logo.webp';
+import Logo from './../../ui/logo/Logo';
+import {Button} from "@mui/material";
 
 
 type HeaderPropsType = {
@@ -19,12 +20,10 @@ function Header(props:HeaderPropsType) {
     return (
 
         <header className={s.header}>
-            <img className={s.logoImg} src={Logo} alt={'1234'}/>
-            <div className={s.headerLogin}>
+            <Logo/>
                 {props.isAuth
-                    ? <div>{props.login}  <button onClick={logOutHandler}>log Out</button></div>
+                    ? <Button onClick={logOutHandler} variant="contained">log Out</Button>
                     : <NavLink to={'/login'}>login</NavLink>}
-            </div>
         </header>
 
     );

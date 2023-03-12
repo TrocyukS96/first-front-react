@@ -1,36 +1,25 @@
 .header {
-   grid-area: header;
-
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-
-   padding: 20px;
-
-   //background-image:url("./../../assets/images/header/1366x768_px_birds_Colorful_Instagram_Internet_Internet_Explorer_LinkedIn_Pink-1290439.jpg");
-   //background-position: center center;
-   //background-attachment: fixed;
-   //background-size: cover;
-   background-color: cornflowerblue;
-   }
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  -webkit-box-shadow: -20px 22px 9px -24px rgba(34, 60, 80, 0.33);
+  -moz-box-shadow: -20px 22px 9px -24px rgba(34, 60, 80, 0.33);
+  box-shadow: -20px 22px 9px -24px rgba(34, 60, 80, 0.33);
+}
 
 .logoImg {
-   width: 110px;
-   height: 90px;
+  width: 110px;
+  height: 90px;
 
-   border-radius: 30px
+  border-radius: 30px
 }
 
-.headerLogin {
-   font-size: 36px;
-
-   text-transform: uppercase;
-
-   color: #fff;
-}
 
 .headerLogin a {
-   text-decoration: none;
+  text-decoration: none;
 
-   color: white;
+  color: white;
 }

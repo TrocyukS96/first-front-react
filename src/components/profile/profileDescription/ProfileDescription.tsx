@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import s from './ProfileDescription.module.css';
+import s from './ProfileDescription.module.scss';
 import {ProfileType} from "../Profile";
 import {ProfileForm} from "../profileForm/ProfileForm";
 import {Contacts} from "../contacts/Contacts";

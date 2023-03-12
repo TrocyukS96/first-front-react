@@ -4,6 +4,7 @@ import ProfileImg from './../../../assets/images/main/main-img.jpg';
 import {ProfileType} from '../Profile';
 import {Preloader} from "../../preloader/Preloader";
 import {ProfileDescription} from '../profileDescription/ProfileDescription';
+import {Avatar} from "@mui/material";
 
 type ProfileInfoPropsType = {
     profile: ProfileType
@@ -24,13 +25,12 @@ function ProfileInfo(props: ProfileInfoPropsType) {
             props.savePhoto(e.target.files[0])
         }
     }
-    console.log(props.status, 'status')
     return (
         <div className={s.profileInfoBlock}>
+            <div className={s.bg}></div>
             <div className={s.top}>
                 <div className={s.topImgWrap}>
-                    <img className={s.topImg}
-                         src={props.profile.photos.small ? props.profile.photos.small : ProfileImg} alt="person-image"/>
+                    <Avatar className={s.topImg} alt="person-image" src={props.profile.photos.small ? props.profile.photos.small : ProfileImg} />
                     <div className={s.topContent}>
                         {props.isOwner && <input
                             type={'file'}
@@ -41,14 +41,6 @@ function ProfileInfo(props: ProfileInfoPropsType) {
                 </div>
 
             </div>
-            {/*<div className={s.about}>*/}
-            {/*    <h2>*/}
-            {/*        {props.profile.fullName}*/}
-            {/*    </h2>*/}
-            {/*    <p className={s.status}>*/}
-            {/*        {}*/}
-            {/*    </p>*/}
-            {/*</div>*/}
             <div>
                 <ProfileDescription
                     updateProfile={props.updateProfile}

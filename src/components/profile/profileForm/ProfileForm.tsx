@@ -1,6 +1,6 @@
 import React from "react";
 import {useFormik} from "formik";
-import s from "../profileDescription/ProfileDescription.module.css";
+import s from "../profileDescription/ProfileDescription.module.scss";
 import {ProfileType} from "../Profile";
 import {Contact} from './../contacts/contact/Contact';
 
